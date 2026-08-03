@@ -722,8 +722,13 @@ a { color: inherit; }
 /* ============================================================== passos */
 .steps {
   background: linear-gradient(180deg, var(--ink) 0%, #032f27 100%);
+}
+
+/* o espaçamento entre os passos vive aqui, não em .steps: o único filho de
+   .steps é o .wrap, então um gap lá fora não separaria nada */
+.steps .wrap {
   display: grid;
-  gap: clamp(48px, 6vw, 76px);
+  gap: clamp(40px, 5vw, 72px);
 }
 
 .step {
@@ -733,15 +738,21 @@ a { color: inherit; }
   align-items: center;
 }
 
+/* No design o número é vazado, só com contorno. Não dá para usar
+   -webkit-text-stroke: o glifo "4" da Inter tem contornos sobrepostos e o
+   navegador contorna cada um separadamente, deixando as arestas internas à
+   mostra. O contorno vem pronto como SVG (sobreposição já removida), que é o
+   que o Figma renderiza. */
 .step__num {
-  font-size: var(--fs-num);
-  font-weight: 900;
-  font-style: italic;
+  font-size: var(--fs-num);   /* define o em de referência do SVG */
   line-height: 1;
-  letter-spacing: -0.04em;
-  /* no design o número é vazado, só com contorno */
-  color: transparent;
-  -webkit-text-stroke: 2px var(--green-2);
+  color: var(--green-2);
+}
+.step__num-art {
+  display: block;
+  width: var(--w);            /* em, vem do style inline de cada número */
+  height: auto;
+  overflow: visible;
 }
 
 .step__tag {
@@ -779,7 +790,11 @@ a { color: inherit; }
 
 @media (min-width: 900px) {
   /* proporção do design: texto 456 · vão 64 · mídia 600 */
-  .step { grid-template-columns: 456fr 600fr; }
+  .step { grid-template-columns: 456fr 600fr; gap: 64px; }
+  /* nos passos invertidos as colunas também trocam de lugar. Sem isto, só o
+     conteúdo trocava de lado e a mídia caía na coluna estreita — era por isso
+     que as caixas dos passos 02 e 04 ficavam menores que as dos 01 e 03. */
+  .step--reverse { grid-template-columns: 600fr 456fr; }
   .step--reverse .step__copy { order: 2; }
 }
 
