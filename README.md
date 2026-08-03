@@ -122,9 +122,15 @@ Cada card flutua com duração, atraso e amplitude próprios — é a diferença
 que dá a sensação de vento. A amplitude é percentual, então acompanha a escala da
 imagem em telas menores.
 
-**Pílulas do agente de IA.** Percurso luminoso em loop: acende a 1ª pílula, o traço,
-a 2ª, o traço, a 3ª, e recomeça. Todos os elementos compartilham o mesmo ciclo de 4s e
-se diferenciam só pelo `animation-delay`, o que mantém a ordem sempre correta.
+**Pílulas do agente de IA.** Percurso luminoso em loop: cada pílula acende e cresce um
+pouco, na ordem, e recomeça. As três compartilham o mesmo ciclo de 4s e se diferenciam só
+pelo `animation-delay`, o que mantém a ordem sempre correta. O atraso inicial de 1,4s
+existe porque brilho e entrada disputam a mesma propriedade `transform` — sem ele o
+brilho atropelaria a animação de entrada.
+
+**Traços dos rótulos.** Um ponto de luz corre de uma ponta à outra em replay, para chamar
+a leitura. É um gradiente de 55% da largura deslocado por `background-position`; a cor do
+ponto muda conforme o fundo (branco no escuro, lima no claro) para sempre parecer luz.
 
 ## Um ponto de atenção
 
