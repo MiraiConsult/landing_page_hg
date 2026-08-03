@@ -942,11 +942,16 @@ a { color: inherit; }
     grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
     gap: 24px;
   }
-  /* o notebook invade a coluna de texto à esquerda e sangra pela direita,
-     como na composição original (.hero tem overflow:hidden) */
+  /* No design o notebook ocupa x 521→1400 num canvas de 1440: entra por cima
+     da coluna de texto à esquerda e quase encosta na borda direita.
+     Os valores abaixo reproduzem isso e acompanham a largura da viewport
+     (.hero tem overflow:hidden). */
   .hero-media {
-    margin-left: -60px;
-    margin-right: calc(-1 * var(--gutter) - 60px);
+    margin-left: clamp(-223px, -15vw, -80px);
+    margin-right: clamp(-120px, -8vw, -40px);
+    /* a área transparente da imagem passa por cima dos CTAs; sem isto ela
+       roubaria o clique do botão "Conhecer a HelloGrowth" */
+    pointer-events: none;
   }
   .hero-media img { width: 100%; }
 }

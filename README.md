@@ -10,7 +10,8 @@ Página estática, sem build e sem dependências externas: é só abrir ou publi
 ├── css/styles.css
 ├── assets/
 │   ├── logo-hellogrowth.svg      ← SVG exportado do Figma
-│   ├── hero-dashboard.png/.webp  ← render do node 60:59
+│   ├── hero-dashboard-*.webp     ← bitmap original do node 60:59 (4096px)
+│   ├── hero-dashboard.png        ← fallback
 │   ├── favicon.svg               ← adição minha; não existe no design
 │   └── fonts/                    ← Inter (variável) + licença OFL
 └── README.md
@@ -80,15 +81,15 @@ foco visível e `prefers-reduced-motion` respeitado.
 **Quebras de linha por `<span>` em bloco**, não `<br>` — mantém as quebras do design
 sem colar as palavras na leitura por tecnologia assistiva.
 
-## Dois pontos de atenção
+**Imagem do hero.** Vem do bitmap original do node `60:59` (4096 × 3175 com alpha),
+recortado na área útil e servido por `srcset` em duas larguras: 1200 px (84 KB) para
+telas 1x e 2400 px (274 KB) para retina. O bloco recebe `pointer-events: none` porque
+a área transparente da imagem passa por cima dos CTAs e roubaria o clique.
 
-**1. O eyebrow "POR QUE EXISTIMOS?" está invisível no Figma.** Na faixa verde, o texto
+## Um ponto de atenção
+
+**O eyebrow "POR QUE EXISTIMOS?" está invisível no Figma.** Na faixa verde, o texto
 e o traço estão em `#1b6b5b` — exatamente a cor do fundo daquela seção. Todos os outros
 eyebrows da página são legíveis, então isso parece um descuido, não intenção. Aqui ele
 foi deixado legível (`rgba(237,240,238,.85)`). Se for proposital, é só ajustar
 `.eyebrow--on-teal` no `styles.css`.
-
-**2. A imagem do hero está em 877 × 598.** É o tamanho natural do node `60:59` no Figma.
-Exibida em ~1000 px de largura, fica levemente suave em telas retina. Se quiser mais
-nitidez, exporte o node em 2x pelo Figma e substitua `assets/hero-dashboard.png/.webp`
-mantendo os mesmos nomes.

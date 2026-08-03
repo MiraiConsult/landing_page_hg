@@ -51,9 +51,12 @@
 
       <div class="hero-media">
         <picture>
-          <source srcset="assets/hero-dashboard.webp" type="image/webp">
+          <source type="image/webp"
+                  srcset="assets/hero-dashboard-1200.webp 1200w,
+                          assets/hero-dashboard-2400.webp 2400w"
+                  sizes="(min-width: 960px) 55vw, 100vw">
           <img src="assets/hero-dashboard.png"
-               width="877" height="598" fetchpriority="high"
+               width="1200" height="815" fetchpriority="high" decoding="async"
                alt="Notebook exibindo o dashboard da HelloGrowth, com cards de oportunidades geradas, vendas convertidas e NPS registrados.">
         </picture>
       </div>
