@@ -967,6 +967,62 @@ a { color: inherit; }
   .hero-media img { width: 100%; }
 }
 
+/* ============================================================== animação
+   O estado inicial escondido depende da classe .js no <html>, adicionada
+   por script. Sem JS — ou se o script falhar — nada fica invisível.
+   -------------------------------------------------------------------- */
+.reveal {
+  transition: opacity 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.js .reveal        { opacity: 0; transform: translateY(18px); }
+.js .reveal.is-in  { opacity: 1; transform: none; }
+
+/* a imagem do hero entra pela direita, acompanhando a composição */
+.js .reveal--media       { opacity: 0; transform: translateX(30px) scale(0.985); }
+.js .reveal--media.is-in { opacity: 1; transform: none; }
+
+/* as réguas entre os passos são traçadas da esquerda para a direita */
+.reveal--line            { transition: transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+.js .reveal--line        { transform: scaleX(0); transform-origin: left center; }
+.js .reveal--line.is-in  { transform: scaleX(1); }
+
+/* cada mensagem do chat surge do seu próprio lado, como numa conversa */
+.js .msg.reveal            { transform: translate(0, 10px) scale(0.96); }
+.js .msg--out.reveal       { transform: translate(16px, 8px) scale(0.96); }
+.js .msg--in.reveal        { transform: translate(-16px, 8px) scale(0.96); }
+.js .msg.reveal.is-in      { transform: none; }
+.js .chat-divider.reveal   { transform: scale(0.9); }
+.js .chat-divider.reveal.is-in { transform: none; }
+
+/* o número da prova social é contado por script; tabular-nums evita que a
+   largura dance a cada dígito */
+.proof-stat__num { font-variant-numeric: tabular-nums; }
+
+/* flutuação lenta do notebook — o design já o mostra suspenso no ar */
+@keyframes hg-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.hero-media img { animation: hg-float 7s ease-in-out 1.2s infinite; }
+
+/* micro-interações de hover, só onde existe cursor de verdade */
+.pain-card, .stage, .feat, .quote, .ph--gif, .ph--video, .proof-badge {
+  transition: transform 300ms ease, border-color 300ms ease;
+}
+.btn span { display: inline-block; transition: transform 250ms ease; }
+
+@media (hover: hover) and (pointer: fine) {
+  .pain-card:hover  { transform: translateY(-4px); border-color: rgba(237, 240, 238, 0.18); }
+  .stage:hover      { transform: translateY(-4px); border-color: var(--green-2); }
+  .feat:hover       { transform: translateY(-3px); }
+  .quote:hover      { transform: translateY(-4px); border-color: rgba(5, 34, 29, 0.16); }
+  .ph--gif:hover,
+  .ph--video:hover  { border-color: var(--green-2); }
+  .proof-badge:hover{ transform: translateY(-3px); }
+  .btn:hover span   { transform: translateX(4px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -974,5 +1030,17 @@ a { color: inherit; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .btn:hover { transform: none; }
+  /* nada entra em cena: tudo já nasce visível e no lugar */
+  .js .reveal,
+  .js .reveal--media,
+  .js .reveal--line,
+  .js .msg.reveal,
+  .js .chat-divider.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-media img { animation: none !important; }
+  .btn:hover,
+  .pain-card:hover, .stage:hover, .feat:hover,
+  .quote:hover, .proof-badge:hover { transform: none; }
 }

@@ -88,6 +88,29 @@ recortado na área útil e servido por `srcset` em duas larguras: 1200 px (84 KB
 telas 1x e 2400 px (274 KB) para retina. O bloco recebe `pointer-events: none` porque
 a área transparente da imagem passa por cima dos CTAs e roubaria o clique.
 
+## Animação
+
+Revelação por scroll com `IntersectionObserver`, sem biblioteca nenhuma. A configuração
+fica numa tabela única no fim do `index.html` — cada linha é
+`[gatilho, itens, passo, atraso, variante]`, então mudar o ritmo de uma seção é mexer
+em um número.
+
+Só `opacity` e `transform` são animados, que são as duas propriedades que a GPU compõe
+sem recalcular layout.
+
+Três salvaguardas, porque animação que esconde conteúdo é risco real:
+
+1. O estado inicial invisível depende da classe `.js` no `<html>`. **Sem JavaScript,
+   nada fica escondido** — a página renderiza inteira.
+2. Se o script de animação não rodar (erro, navegador antigo), um timeout de 2,5s
+   remove a classe `.js` e devolve tudo à vista.
+3. Com `prefers-reduced-motion: reduce` o script sai de cena logo no começo e nenhum
+   elemento chega a ficar oculto.
+
+Destaques: o chat do WhatsApp toca mensagem a mensagem quando entra em cena, o "+100"
+conta a partir do zero, as réguas entre os passos são traçadas da esquerda para a
+direita e o notebook do hero flutua devagar.
+
 ## Um ponto de atenção
 
 **O eyebrow "POR QUE EXISTIMOS?" está invisível no Figma.** Na faixa verde, o texto

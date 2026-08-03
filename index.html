@@ -16,6 +16,15 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
+
+<script>
+  /* Só esconde o que vai ser animado se houver JS. O timeout é a rede de
+     segurança: se o script de animação não rodar, tudo volta à vista. */
+  document.documentElement.classList.add('js');
+  setTimeout(function () {
+    if (!window.__hgAnim) document.documentElement.classList.remove('js');
+  }, 2500);
+</script>
 </head>
 <body>
 
@@ -391,6 +400,93 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  window.__hgAnim = true;
+  var root = document.documentElement;
+
+  // Sem suporte a IntersectionObserver ou com movimento reduzido, a página
+  // aparece inteira de uma vez — que é o comportamento correto nos dois casos.
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    root.classList.remove('js');
+    return;
+  }
+
+  // [gatilho, itens dentro dele (':self' = o próprio), passo ms, atraso ms, variante]
+  var SEQ = [
+    ['.header-row',          ':scope > *',                            90,   0],
+    ['.hero-copy',           '.hero-line',                            90, 140],
+    ['.hero-copy',           '.hero-sub, .btn-row',                  100, 440],
+    ['.hero-media',          ':self',                                  0, 240, 'media'],
+    ['.band-teal .wrap',     ':scope > *',                            90,   0],
+    ['#dores .wrap',         '.eyebrow, .h2',                         90,   0],
+    ['.pain-grid',           '.pain-card',                            90, 100],
+    ['#como-funciona .wrap', '.eyebrow, .h2, .sec__lead',             90,   0],
+    ['.stage-flow',          ':scope > *',                            90, 100],
+    ['#como-funciona .wrap', '.pullquote',                             0,   0],
+    ['.ai-copy',             '.eyebrow, .h2--ai, .ai-text, .ai-flag',  90,   0],
+    ['.pill-flow',           '.pill',                                110, 120],
+    ['.phone',               ':self',                                  0, 100],
+    ['.phone__chat',         ':scope > *',                           330, 500],
+    ['.feat-grid',           '.feat',                                 90,   0],
+    ['#plataforma .wrap',    '.eyebrow, .h2, .ph--video',             90,   0],
+    ['.step',                '.step__num, .step__tag, .step__title, .step__text, .ph--gif', 80, 0],
+    ['.step-rule',           ':self',                                  0,   0, 'line'],
+    ['#clientes .wrap',      '.eyebrow',                               0,   0],
+    ['.proof-head',          ':scope > *',                           140,   0],
+    ['.quote-grid',          '.quote',                               130, 100],
+    ['.cta-final__inner',    ':scope > *',                           100,   0],
+    ['.footer-grid',         ':scope > *',                            80,   0]
+  ];
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var els = entry.target.__hgEls || [];
+      els.forEach(function (el) { el.classList.add('is-in'); });
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+
+  SEQ.forEach(function (cfg) {
+    var sel = cfg[1], step = cfg[2], base = cfg[3], variant = cfg[4];
+    Array.prototype.forEach.call(document.querySelectorAll(cfg[0]), function (trigger) {
+      var els = sel === ':self'
+        ? [trigger]
+        : Array.prototype.slice.call(trigger.querySelectorAll(sel));
+      if (!els.length) return;
+      els.forEach(function (el, i) {
+        el.classList.add(variant === 'line' ? 'reveal--line' : 'reveal');
+        if (variant === 'media') el.classList.add('reveal--media');
+        el.style.transitionDelay = (base + i * step) + 'ms';
+      });
+      // um mesmo gatilho pode aparecer em mais de uma linha do SEQ
+      trigger.__hgEls = (trigger.__hgEls || []).concat(els);
+      io.observe(trigger);
+    });
+  });
+
+  // "+100" conta a partir do zero quando entra em cena
+  var stat = document.querySelector('.proof-stat__num');
+  if (stat) {
+    var alvo = parseInt(stat.textContent.replace(/\D/g, ''), 10) || 0;
+    var statIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      statIO.disconnect();
+      var t0 = null;
+      requestAnimationFrame(function passo(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 1500);
+        stat.textContent = '+' + Math.round(alvo * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(passo);
+      });
+    }, { threshold: 0.4 });
+    statIO.observe(stat);
+  }
+})();
+</script>
 
 </body>
 </html>
