@@ -109,7 +109,18 @@ Três salvaguardas, porque animação que esconde conteúdo é risco real:
 
 Destaques: o chat do WhatsApp toca mensagem a mensagem quando entra em cena, o "+100"
 conta a partir do zero, as réguas entre os passos são traçadas da esquerda para a
-direita e o notebook do hero flutua devagar.
+direita, os cards das dores entram cada um pelo seu lado do grid e a esteira de
+"Como funciona" é desenhada em sequência, com as setas deslizando entre as etapas.
+
+**Hero.** O notebook é uma imagem estática (`hero-laptop-*`); os cinco cards do
+dashboard são recortes separados (`hero-card-*`) posicionados em porcentagem sobre ele.
+Cada card flutua com duração, atraso e amplitude próprios — é a diferença entre eles
+que dá a sensação de vento. A amplitude é percentual, então acompanha a escala da
+imagem em telas menores.
+
+**Pílulas do agente de IA.** Percurso luminoso em loop: acende a 1ª pílula, o traço,
+a 2ª, o traço, a 3ª, e recomeça. Todos os elementos compartilham o mesmo ciclo de 4s e
+se diferenciam só pelo `animation-delay`, o que mantém a ordem sempre correta.
 
 ## Um ponto de atenção
 

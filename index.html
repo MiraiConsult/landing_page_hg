@@ -59,15 +59,39 @@
       </div>
 
       <div class="hero-media">
-        <picture>
-          <source type="image/webp"
-                  srcset="assets/hero-dashboard-1200.webp 1200w,
-                          assets/hero-dashboard-2400.webp 2400w"
-                  sizes="(min-width: 960px) 55vw, 100vw">
-          <img src="assets/hero-dashboard.png"
-               width="1200" height="815" fetchpriority="high" decoding="async"
-               alt="Notebook exibindo o dashboard da HelloGrowth, com cards de oportunidades geradas, vendas convertidas e NPS registrados.">
-        </picture>
+        <!-- notebook parado; os cards flutuam por cima, cada um no seu ritmo -->
+        <div class="hero-stage">
+          <picture>
+            <source type="image/webp"
+                    srcset="assets/hero-laptop-1200.webp 1200w,
+                            assets/hero-laptop-2400.webp 2400w"
+                    sizes="(min-width: 960px) 55vw, 100vw">
+            <img class="hero-stage__base" src="assets/hero-laptop.png"
+                 width="1200" height="815" fetchpriority="high" decoding="async"
+                 alt="Notebook exibindo o dashboard da HelloGrowth, com cards de oportunidades geradas, vendas convertidas e NPS registrados.">
+          </picture>
+
+          <span class="hero-card" style="--x:67.03%;--y:2.37%;--w:17.51%">
+            <img src="assets/hero-card-oportunidades.webp" alt="" aria-hidden="true"
+                 style="--dur:6.4s;--delay:0s;--amp:5%">
+          </span>
+          <span class="hero-card" style="--x:72.02%;--y:26.52%;--w:10.82%">
+            <img src="assets/hero-card-promotores.webp" alt="" aria-hidden="true"
+                 style="--dur:5.2s;--delay:-1.8s;--amp:7%">
+          </span>
+          <span class="hero-card" style="--x:27.82%;--y:33.95%;--w:10.13%">
+            <img src="assets/hero-card-leads.webp" alt="" aria-hidden="true"
+                 style="--dur:7.1s;--delay:-3.4s;--amp:6.5%">
+          </span>
+          <span class="hero-card" style="--x:81.89%;--y:45.33%;--w:12.78%">
+            <img src="assets/hero-card-nps.webp" alt="" aria-hidden="true"
+                 style="--dur:5.8s;--delay:-0.9s;--amp:6%">
+          </span>
+          <span class="hero-card" style="--x:29.50%;--y:48.82%;--w:17.03%">
+            <img src="assets/hero-card-vendas.webp" alt="" aria-hidden="true"
+                 style="--dur:6.9s;--delay:-2.6s;--amp:4.5%">
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -422,9 +446,12 @@
     ['.hero-media',          ':self',                                  0, 240, 'media'],
     ['.band-teal .wrap',     ':scope > *',                            90,   0],
     ['#dores .wrap',         '.eyebrow, .h2',                         90,   0],
-    ['.pain-grid',           '.pain-card',                            90, 100],
+    ['.pain-grid',           '.pain-card',                           110, 100, 'side'],
+    ['.pain-card',           '.pain-card__tag',                        0, 380, 'pop'],
     ['#como-funciona .wrap', '.eyebrow, .h2, .sec__lead',             90,   0],
-    ['.stage-flow',          ':scope > *',                            90, 100],
+    ['.stage-flow',          '.stage',                               260, 100],
+    ['.stage-flow',          '.stage-arrow',                         260, 240, 'slide'],
+    ['.stage',               '.stage__tag',                            0, 320, 'pop'],
     ['#como-funciona .wrap', '.pullquote',                             0,   0],
     ['.ai-copy',             '.eyebrow, .h2--ai, .ai-text, .ai-flag',  90,   0],
     ['.pill-flow',           '.pill',                                110, 120],
@@ -458,8 +485,12 @@
         : Array.prototype.slice.call(trigger.querySelectorAll(sel));
       if (!els.length) return;
       els.forEach(function (el, i) {
-        el.classList.add(variant === 'line' ? 'reveal--line' : 'reveal');
-        if (variant === 'media') el.classList.add('reveal--media');
+        if (variant === 'line') {
+          el.classList.add('reveal--line');
+        } else {
+          el.classList.add('reveal');
+          if (variant) el.classList.add('reveal--' + variant);
+        }
         el.style.transitionDelay = (base + i * step) + 'ms';
       });
       // um mesmo gatilho pode aparecer em mais de uma linha do SEQ
