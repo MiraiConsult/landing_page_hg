@@ -162,17 +162,24 @@ a { color: inherit; }
                     transparent 0%, var(--sweep) 50%, transparent 100%);
   background-repeat: no-repeat;
   background-size: 55% 100%;
-  animation: hg-sweep 2.6s cubic-bezier(0.4, 0, 0.3, 1) infinite;
+  /* linear: o ponto atravessa em velocidade constante. Com easing ele
+     desacelerava no fim e parecia travar antes de reiniciar. */
+  animation: hg-sweep 2.4s linear infinite;
 }
 @keyframes hg-sweep {
-  0%       { background-position: -70% 0; }
-  45%,100% { background-position: 170% 0; }
+  0%       { background-position: -65% 0; }
+  70%,100% { background-position: 165% 0; }
 }
 
 /* o ponto precisa ser mais claro que o traço: branco sobre fundo escuro,
    lima onde o rótulo já está sobre fundo claro */
 .eyebrow            { --sweep: rgba(255, 255, 255, 0.95); }
 .sec--paper .eyebrow{ --sweep: var(--lime); }
+
+/* na faixa verde o rótulo já é quase branco, então o ponto branco sumia.
+   O traço fica mais discreto e o ponto vai a branco cheio. */
+.eyebrow--on-teal          { --sweep: #fff; }
+.eyebrow--on-teal::before  { background-color: rgba(237, 240, 238, 0.4); }
 /* No Figma este eyebrow está #1b6b5b sobre fundo #1b6b5b (invisível).
    Mantido legível de propósito — ver nota no README. */
 .eyebrow--on-teal { color: rgba(237, 240, 238, 0.85); }
@@ -1084,6 +1091,9 @@ a { color: inherit; }
 }
 .hero-card img {
   width: 100%;
+  /* os recortes trazem só o corpo do card; a sombra que estava no bitmap saiu
+     junto com o fundo e volta aqui, acompanhando o card enquanto ele flutua */
+  filter: drop-shadow(0 9px 20px rgba(5, 34, 29, 0.17));
   animation: hg-drift var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
 }
 
