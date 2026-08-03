@@ -578,7 +578,7 @@ a { color: inherit; }
   display: block;
   margin-top: 3px;
   font-size: 0.5438rem;       /* 8.69px */
-  color: rgba(233, 237, 239, 0.6);
+  color: var(--wa-text);
 }
 /* canto "rabicho" achatado, como no design */
 .msg--out {
@@ -592,29 +592,33 @@ a { color: inherit; }
   border-radius: 12px 12px 12px 3.5px;
 }
 
-.msg--audio { max-width: 78%; }
-.audio { display: flex; align-items: center; gap: 8px; }
+.msg--audio { width: 238px; max-width: 100%; }
+.audio { display: flex; align-items: center; }
 .audio__play {
-  width: 23px; height: 23px;
+  width: 22.6px; height: 22.6px;
   flex: none;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(233, 237, 239, 0.22);
-  font-size: 0.5625rem;
+  background: var(--wa-muted);
+  color: var(--wa-in);
+  font-size: 0.6rem;
 }
+/* onda desenhada com as 60 barras do design. Antes era um gradiente repetido
+   com flex:1 — como a bolha se dimensiona pelo conteúdo, a base 0% fazia a
+   onda colapsar para largura zero e só sobrava o play. */
 .audio__wave {
-  flex: 1;
-  height: 18px;
-  background: repeating-linear-gradient(
-    to right,
-    rgba(233, 237, 239, 0.75) 0 2px,
-    transparent 2px 5px
-  );
-  -webkit-mask-image: linear-gradient(to bottom, transparent 8%, #000 30%, #000 70%, transparent 92%);
-          mask-image: linear-gradient(to bottom, transparent 8%, #000 30%, #000 70%, transparent 92%);
+  flex: 0 1 154.69px;
+  height: 22.6px;
+  margin-left: 6.1px;
 }
-.audio__len { font-size: 0.625rem; color: var(--wa-muted); }
+.audio__len {
+  flex: none;
+  margin-left: 8.7px;
+  font-size: 0.652rem;
+  color: var(--wa-muted);
+}
+.msg--audio time { margin-top: 6px; }
 
 .chat-divider { text-align: center; margin: 2px 0; }
 .chat-divider span {
@@ -963,7 +967,10 @@ a { color: inherit; }
      (.hero tem overflow:hidden). */
   .hero-media {
     margin-left: clamp(-223px, -15vw, -80px);
-    margin-right: clamp(-120px, -8vw, -40px);
+    /* a borda direita da imagem fica sempre a 40px da borda da TELA, como no
+       design (x=1400 num canvas de 1440). Com um valor fixo em vw a imagem
+       era cortada pela viewport entre 960px e 1300px. */
+    margin-right: calc(40px - max(var(--gutter), 50vw - 560px));
     /* a área transparente da imagem passa por cima dos CTAs; sem isto ela
        roubaria o clique do botão "Conhecer a HelloGrowth" */
     pointer-events: none;
