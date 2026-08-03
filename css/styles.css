@@ -707,22 +707,6 @@ a { color: inherit; }
 }
 .ph--gif .ph__label { font-size: 0.875rem; }
 
-.ph--price {
-  margin-top: clamp(28px, 3.4vw, 40px);
-  gap: 0;
-  padding: 64px 48px;
-  background: rgba(0, 77, 64, 0.4);
-  border: 1.5px dashed var(--green-2);
-  border-radius: 28px;
-  max-width: 100%;
-}
-.ph--price p {
-  max-width: 560px;
-  font-size: 0.9375rem;       /* 15px */
-  font-weight: 700;
-  line-height: 1.7;
-}
-
 /* ============================================================== passos */
 .steps {
   background: linear-gradient(180deg, var(--ink) 0%, #032f27 100%);
@@ -811,35 +795,36 @@ a { color: inherit; }
   margin-top: clamp(24px, 3vw, 40px);
 }
 
+/* Sobre fundo claro o lima some (contraste ~1,3:1). O verde vivo é o mesmo
+   tratamento que o design dá ao destaque claro do hero ("Mais vendas."). */
 .proof-stat__num {
   font-size: var(--fs-stat);
   font-weight: 900;
   font-style: italic;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--lime);
+  color: var(--green);
 }
 .proof-stat__label {
   margin-top: 8px;
   font-size: var(--fs-lead);
   font-weight: 500;
   line-height: 1.4;
-  color: var(--paper);
-  opacity: 0.85;
+  color: var(--ink);
+  opacity: 0.8;
 }
 
 .proof-badge {
-  background: rgba(0, 77, 64, 0.25);
-  border: 1.5px solid var(--teal);
+  background: #fff;
+  border: 1.5px solid rgba(27, 107, 91, 0.3);
   border-radius: 18px;
   padding: 20px 24px;
   font-size: 0.9063rem;       /* 14.5px */
   font-weight: 400;
   line-height: 1.55;
-  color: var(--paper);
-  opacity: 0.9;
+  color: var(--ink);
 }
-.proof-badge strong { color: var(--lime); font-weight: 900; }
+.proof-badge strong { color: var(--deep); font-weight: 800; }
 
 @media (min-width: 900px) {
   .proof-head { grid-template-columns: 1fr auto; }
@@ -857,9 +842,12 @@ a { color: inherit; }
   .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+/* os cards eram claros sobre fundo escuro; com a seção clara passam a ser
+   brancos, com uma borda leve para se destacarem do fundo */
 .quote {
-  background: var(--paper);
+  background: #fff;
   color: var(--ink);
+  border: 1px solid rgba(5, 34, 29, 0.08);
   border-radius: 24px;
   padding: 40px 36px;
   display: flex;

@@ -39,11 +39,13 @@ para não passarem despercebidas:
 |---|---|---|
 | Seção "A plataforma" | Vídeo institucional (Motion Hello Growth V8) | `index.html` — há um comentário com a tag `<video>` pronta para substituir a div |
 | Passos 01–04 | `gif-passo1.gif` … `gif-passo4.gif` | trocar cada `div.ph--gif` por `<img>` |
-| Seção "Investimento" | Planos e valores — marcado como `[AJUSTAR]` no design | bloco `div.ph--price` |
 | CTAs | Link real de agendamento (Calendly / WhatsApp) | 2 ocorrências marcadas com `<!-- TODO -->`; hoje apontam para a âncora `#agendar` |
 
 Os placeholders de GIF são `4:3` e o de vídeo é `16:9`, iguais às caixas do design —
 trocar por mídia nessa proporção não desloca o layout.
+
+**A seção "Investimento" do design foi removida** a pedido. Se voltar a fazer sentido,
+o histórico do git tem a marcação original.
 
 ## Tokens
 
