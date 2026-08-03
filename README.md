@@ -10,8 +10,9 @@ Página estática, sem build e sem dependências externas: é só abrir ou publi
 ├── css/styles.css
 ├── assets/
 │   ├── logo-hellogrowth.svg      ← SVG exportado do Figma
-│   ├── hero-dashboard-*.webp     ← bitmap original do node 60:59 (4096px)
-│   ├── hero-dashboard.png        ← fallback
+│   ├── hero-laptop-*.webp        ← notebook sem os cards (bitmap 4096px)
+│   ├── hero-laptop.png           ← fallback
+│   ├── hero-card-*.webp          ← os 5 cards, recortados um a um
 │   ├── favicon.svg               ← adição minha; não existe no design
 │   └── fonts/                    ← Inter (variável) + licença OFL
 └── README.md
@@ -83,10 +84,13 @@ foco visível e `prefers-reduced-motion` respeitado.
 **Quebras de linha por `<span>` em bloco**, não `<br>` — mantém as quebras do design
 sem colar as palavras na leitura por tecnologia assistiva.
 
-**Imagem do hero.** Vem do bitmap original do node `60:59` (4096 × 3175 com alpha),
-recortado na área útil e servido por `srcset` em duas larguras: 1200 px (84 KB) para
-telas 1x e 2400 px (274 KB) para retina. O bloco recebe `pointer-events: none` porque
-a área transparente da imagem passa por cima dos CTAs e roubaria o clique.
+**Imagem do hero.** O notebook vem do bitmap sem os cards que o PDF original trazia
+como camada separada; os cinco cards são recortes do composto do Figma. As duas fontes
+têm o mesmo enquadramento (4096 × 3175, área útil idêntica), então as posições em
+porcentagem batem sem ajuste. O notebook é servido por `srcset` em duas larguras —
+1200 px (84 KB) para telas 1x e 2400 px (282 KB) para retina. O bloco recebe
+`pointer-events: none` porque a área transparente passa por cima dos CTAs e roubaria
+o clique.
 
 ## Animação
 
