@@ -967,10 +967,11 @@ a { color: inherit; }
      (.hero tem overflow:hidden). */
   .hero-media {
     margin-left: clamp(-223px, -15vw, -80px);
-    /* a borda direita da imagem fica sempre a 40px da borda da TELA, como no
-       design (x=1400 num canvas de 1440). Com um valor fixo em vw a imagem
-       era cortada pela viewport entre 960px e 1300px. */
-    margin-right: calc(40px - max(var(--gutter), 50vw - 560px));
+    /* A imagem sangra 120px além do container, como no design (x=1400 num
+       canvas de 1440), mas nunca chega a menos de 40px da borda da tela.
+       O `min` é o que segura os dois lados: sem ele a imagem ou é cortada
+       em telas médias, ou infla sem limite em telas muito largas. */
+    margin-right: calc(-1 * min(120px, max(var(--gutter), 50vw - 560px) - 40px));
     /* a área transparente da imagem passa por cima dos CTAs; sem isto ela
        roubaria o clique do botão "Conhecer a HelloGrowth" */
     pointer-events: none;
