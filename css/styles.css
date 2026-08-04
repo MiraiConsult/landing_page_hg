@@ -1038,17 +1038,22 @@ a { color: inherit; }
 .js .reveal--line        { transform: scaleX(0); transform-origin: left center; }
 .js .reveal--line.is-in  { transform: scaleX(1); }
 
-/* cards das dores entram cada um pelo seu lado do grid */
+/* Cards das dores entram cada um pelo seu lado do grid, e a etiqueta
+   acompanha o lado do próprio card.
+
+   As regras de repouso (.is-in) repetem os mesmos seletores das de partida.
+   Sem isso a de partida vence por especificidade e o elemento nunca volta ao
+   lugar — foi o que deixou "DOR 01" e "DOR 03" deslocadas para a esquerda. */
 @media (min-width: 720px) {
   .js .reveal--side:nth-child(odd)  { transform: translateX(-30px) scale(0.985); }
   .js .reveal--side:nth-child(even) { transform: translateX(30px) scale(0.985); }
-  .js .reveal--side.is-in           { transform: none; }
+  .js .reveal--side:nth-child(odd).is-in,
+  .js .reveal--side:nth-child(even).is-in { transform: none; }
 
-  /* a etiqueta acompanha o lado do próprio card; antes ela crescia do centro
-     e parecia vir sempre da direita, brigando com os cards que vêm da esquerda */
   .js .pain-card:nth-child(odd)  .reveal--tag { transform: translateX(-26px); }
   .js .pain-card:nth-child(even) .reveal--tag { transform: translateX(26px); }
-  .js .reveal--tag.is-in                      { transform: none; }
+  .js .pain-card:nth-child(odd)  .reveal--tag.is-in,
+  .js .pain-card:nth-child(even) .reveal--tag.is-in { transform: none; }
 }
 
 /* etiquetas e selos surgem crescendo, com um leve exagero no fim */
@@ -1071,7 +1076,8 @@ a { color: inherit; }
 .js .msg.reveal            { transform: translate(0, 10px) scale(0.96); }
 .js .msg--out.reveal       { transform: translate(16px, 8px) scale(0.96); }
 .js .msg--in.reveal        { transform: translate(-16px, 8px) scale(0.96); }
-.js .msg.reveal.is-in      { transform: none; }
+.js .msg--out.reveal.is-in,
+.js .msg--in.reveal.is-in  { transform: none; }
 .js .chat-divider.reveal   { transform: scale(0.9); }
 .js .chat-divider.reveal.is-in { transform: none; }
 
