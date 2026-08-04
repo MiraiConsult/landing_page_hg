@@ -84,10 +84,11 @@ foco visível e `prefers-reduced-motion` respeitado.
 **Quebras de linha por `<span>` em bloco**, não `<br>` — mantém as quebras do design
 sem colar as palavras na leitura por tecnologia assistiva.
 
-**Imagem do hero.** O notebook vem do bitmap sem os cards que o PDF original trazia
-como camada separada; os cinco cards são recortes do composto do Figma. As duas fontes
-têm o mesmo enquadramento (4096 × 3175, área útil idêntica), então as posições em
-porcentagem batem sem ajuste. O notebook é servido por `srcset` em duas larguras —
+**Imagem do hero.** Vem de duas camadas separadas no Figma, na mesma caixa
+(`72:3` "comp 1" = notebook, `72:2` "cards 1" = os cinco cards), ambas exportadas em
+4096 × 3175. Como os cards estão sobre transparência, separá-los é só pegar os
+componentes conectados do canal alpha — sai um por card, com a sombra, sem máscara nem
+recorte manual. As posições em porcentagem saem da mesma origem, então batem sem ajuste. O notebook é servido por `srcset` em duas larguras —
 1200 px (84 KB) para telas 1x e 2400 px (282 KB) para retina. O bloco recebe
 `pointer-events: none` porque a área transparente passa por cima dos CTAs e roubaria
 o clique.
@@ -123,7 +124,8 @@ que dá a sensação de vento. A amplitude é percentual, então acompanha a esc
 imagem em telas menores.
 
 **Pílulas do agente de IA.** Percurso luminoso em loop: cada pílula acende e cresce um
-pouco, na ordem, e recomeça. As três compartilham o mesmo ciclo de 4s e se diferenciam só
+pouco, na ordem, e recomeça. O traço de ligação entre elas saiu do design — ficava por
+cima da pílula quando ela crescia. As três compartilham o mesmo ciclo de 4s e se diferenciam só
 pelo `animation-delay`, o que mantém a ordem sempre correta. O atraso inicial de 1,4s
 existe porque brilho e entrada disputam a mesma propriedade `transform` — sem ele o
 brilho atropelaria a animação de entrada.

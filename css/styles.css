@@ -560,19 +560,9 @@ a { color: inherit; }
 .pill.is-in:nth-child(2) { animation-delay: 2.3s; }
 .pill.is-in:nth-child(3) { animation-delay: 3.2s; }
 
-/* traço de ligação só quando as três pílulas cabem na mesma linha —
-   com quebra, sobraria um traço solto à esquerda */
-@media (min-width: 560px) {
-  .pill + .pill::before {
-    content: "";
-    position: absolute;
-    left: -18px;
-    top: 50%;
-    width: 18px;
-    height: 2px;
-    background: #daf58e;
-  }
-}
+/* O traço de ligação entre as pílulas saiu do design: ele ficava por cima da
+   pílula quando ela crescia no brilho. A sequência agora é contada só pelo
+   brilho percorrendo as três. */
 
 /* mock do WhatsApp */
 .phone {
@@ -1075,9 +1065,14 @@ a { color: inherit; }
    duração, atraso e amplitude próprios — é a diferença entre eles que dá a
    sensação de vento, e não o movimento em si. A amplitude é percentual, então
    acompanha a escala da imagem em telas menores. */
+/* três paradas em vez de duas: o card descreve um arco em vez de subir e
+   descer em linha reta, o que lê muito mais como flutuar */
 @keyframes hg-drift {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50%      { transform: translateY(calc(-1 * var(--amp, 9%))) rotate(var(--rot, 0deg)); }
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  35%      { transform: translate(var(--ampx, 0%), calc(-1 * var(--amp, 16%)))
+                        rotate(var(--rot, 0deg)); }
+  70%      { transform: translate(calc(-1 * var(--ampx, 0%)), calc(-0.4 * var(--amp, 16%)))
+                        rotate(calc(-0.6 * var(--rot, 0deg))); }
 }
 
 .hero-stage { position: relative; }
@@ -1089,11 +1084,9 @@ a { color: inherit; }
   top: var(--y);
   width: var(--w);
 }
+/* cada card vem recortado da própria camada do Figma, já com a sombra */
 .hero-card img {
   width: 100%;
-  /* os recortes trazem só o corpo do card; a sombra que estava no bitmap saiu
-     junto com o fundo e volta aqui, acompanhando o card enquanto ele flutua */
-  filter: drop-shadow(0 9px 20px rgba(5, 34, 29, 0.17));
   animation: hg-drift var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
 }
 
