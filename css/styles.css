@@ -202,9 +202,15 @@ a { color: inherit; }
 .lime  { color: var(--lime); }
 .green { color: var(--green-2); }
 
+/* no design a distância entre o rótulo e o título muda por seção: 33px em
+   "Suas dores" e 47px em "Como funciona" */
+#como-funciona .eyebrow { margin-bottom: 35px; }
+
 .sec__lead {
-  margin-top: clamp(20px, 2.2vw, 34px);
-  max-width: 76ch;
+  margin-top: clamp(23px, 2.7vw, 39px);
+  /* 1035px é a largura do texto no design; com 76ch ele quebrava numa linha
+     a mais e a seção inteira crescia junto */
+  max-width: 1035px;
   font-size: var(--fs-lead);
   line-height: 1.55;
   color: var(--paper);
@@ -411,7 +417,7 @@ a { color: inherit; }
   padding: 36px 30px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
 }
 
 .stage__tag {
@@ -459,8 +465,10 @@ a { color: inherit; }
 }
 
 .pullquote {
-  margin: clamp(44px, 5vw, 68px) auto 0;
-  max-width: 32ch;
+  margin: clamp(26px, 2.7vw, 38px) auto 0;
+  /* no design a frase ocupa 897px e fecha em duas linhas; com 32ch ela ia
+     para três e empurrava o resto da seção */
+  max-width: 900px;
   text-align: center;
   font-size: var(--fs-quote);
   font-weight: 300;
