@@ -723,38 +723,39 @@ a { color: inherit; }
   .ai-grid { grid-template-columns: minmax(0, 1fr) 365px; }
 }
 
-/* ========================================================== placeholders */
-.ph {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-align: center;
-  padding: 24px;
-  color: var(--green-2);
+/* ================================================================ mídia */
+/* As caixas mantêm as proporções das do design (16:9 e 4:3), que são também
+   as dos arquivos entregues — daí object-fit: cover não cortar nada. */
+.platform-video,
+.step-loop {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 1.5px solid var(--teal);
 }
-.ph__label { font-weight: 700; line-height: 1.4; }
-.ph__hint  { font-size: var(--fs-xs); font-weight: 400; line-height: 1.4; opacity: 0.65; }
-.ph__play,
-.ph__spark { font-size: 2.125rem; font-weight: 400; line-height: 1.2; }
 
-.ph--video {
+.platform-video {
   margin-top: clamp(32px, 4vw, 40px);
   aspect-ratio: 16 / 9;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1.5px solid var(--teal);
+  background: #000;
   border-radius: 28px;
 }
-.ph--video .ph__label { font-size: 0.9375rem; }
 
-.ph--gif {
+.step-loop {
   aspect-ratio: 4 / 3;
   background: rgba(27, 107, 91, 0.16);
-  border: 1.5px dashed var(--teal);
   border-radius: 24px;
 }
-.ph--gif .ph__label { font-size: 0.875rem; }
+
+/* Só aparece se o navegador não souber tocar nenhuma das fontes; nesse caso o
+   <video> não ocupa espaço e o texto precisa do seu próprio respiro. */
+.video-alt {
+  padding: 24px;
+  text-align: center;
+  line-height: 1.5;
+  color: var(--green-2);
+}
 
 /* ============================================================== passos */
 .steps {
@@ -1115,7 +1116,7 @@ a { color: inherit; }
 }
 
 /* micro-interações de hover, só onde existe cursor de verdade */
-.pain-card, .stage, .feat, .quote, .ph--gif, .ph--video, .proof-badge {
+.pain-card, .stage, .feat, .quote, .step-loop, .platform-video, .proof-badge {
   transition: transform 300ms ease, border-color 300ms ease;
 }
 .btn span { display: inline-block; transition: transform 250ms ease; }
@@ -1131,8 +1132,8 @@ a { color: inherit; }
   .stage:hover      { transform: translateY(-4px); border-color: var(--green-2); }
   .feat:hover       { transform: translateY(-3px); }
   .quote:hover      { transform: translateY(-4px); border-color: rgba(5, 34, 29, 0.16); }
-  .ph--gif:hover,
-  .ph--video:hover  { border-color: var(--green-2); }
+  .step-loop:hover,
+  .platform-video:hover { border-color: var(--green-2); }
   .proof-badge:hover{ transform: translateY(-3px); }
   .btn:hover span   { transform: translateX(4px); }
 }

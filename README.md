@@ -14,7 +14,8 @@ Página estática, sem build e sem dependências externas: é só abrir ou publi
 │   ├── hero-laptop.png           ← fallback
 │   ├── hero-card-*.webp          ← os 5 cards, recortados um a um
 │   ├── favicon.svg               ← adição minha; não existe no design
-│   └── fonts/                    ← Inter (variável) + licença OFL
+│   ├── fonts/                    ← Inter (variável) + licença OFL
+│   └── video/                    ← motion institucional, os 4 laços e os pôsteres
 └── README.md
 ```
 
@@ -33,17 +34,11 @@ python3 -m http.server 8000
 
 ## O que ainda precisa ser preenchido
 
-O design já vinha com marcações de conteúdo pendente, mantidas como blocos visíveis
-para não passarem despercebidas:
-
 | Local | O que falta | Onde mexer |
 |---|---|---|
-| Seção "A plataforma" | Vídeo institucional (Motion Hello Growth V8) | `index.html` — há um comentário com a tag `<video>` pronta para substituir a div |
-| Passos 01–04 | `gif-passo1.gif` … `gif-passo4.gif` | trocar cada `div.ph--gif` por `<img>` |
 | CTAs | Link real de agendamento (Calendly / WhatsApp) | 2 ocorrências marcadas com `<!-- TODO -->`; hoje apontam para a âncora `#agendar` |
 
-Os placeholders de GIF são `4:3` e o de vídeo é `16:9`, iguais às caixas do design —
-trocar por mídia nessa proporção não desloca o layout.
+Os placeholders de vídeo e de GIF **já foram preenchidos** — ver "Mídia" abaixo.
 
 **A seção "Investimento" do design foi removida** a pedido. Se voltar a fazer sentido,
 o histórico do git tem a marcação original.
@@ -133,6 +128,44 @@ brilho atropelaria a animação de entrada.
 **Traços dos rótulos.** Um ponto de luz corre de uma ponta à outra em replay, para chamar
 a leitura. É um gradiente de 55% da largura deslocado por `background-position`; a cor do
 ponto muda conforme o fundo (branco no escuro, lima no claro) para sempre parecer luz.
+
+## Mídia
+
+Entregue: um `.mov` de 58s (Motion Hello Growth V10), quatro GIFs dos passos e um PNG
+de capa. Somavam 151 MB. Cada decisão abaixo foi medida, não estimada.
+
+**Motion institucional — recodificação zero.** O `.mov` já vinha com H.264 em
+`yuv420p` por dentro; era só o invólucro QuickTime. Trocar para `.mp4` é remux
+(`-c copy`), não recompressão: o hash de cada quadro decodificado bate com o do
+original. Ficou em 48,9 MB. Uma versão em CRF 18 daria 16,5 MB com diferença média de
+0,32/255 — imperceptível, mas o pedido era não perder qualidade, então ficou o original.
+
+**Passos — VP9 4:4:4 em vez de GIF.** GIF só comporta 256 cores por quadro e usa
+pontilhado para simular o resto; os quatro somavam 100 MB. Convertidos para
+1200 × 900 (o dobro exato da caixa de 600 × 450, ou seja, retina sem sobra),
+`libvpx-vp9 -crf 32 -pix_fmt yuv444p`, 35 MB no total.
+
+A escolha do 4:4:4 veio de uma medição: em 4:2:0 a diferença contra o GIF **não cede
+com mais bitrate** — CRF 18 → 10 triplica o arquivo e a diferença fica em 11,1 → 11,0.
+O gargalo é a subamostragem de cor, que borra as bordas do texto da interface. Separando
+os pixels de texto dos de área lisa, o H.264 4:2:0 erra 7,89 no texto contra 3,82 do
+VP9 4:4:4 — e ainda por cima o VP9 saiu **menor** (8,95 MB contra 6,59 MB no passo 1,
+com a qualidade invertida a favor dele).
+
+Cada `<video>` tem WebM e MP4: o navegador baixa só o primeiro que entende. O WebM
+atende Chrome, Firefox e Edge; o MP4 existe para o Safari, que não decodifica VP9 4:4:4.
+
+**Capa.** O PNG entregue era 16 bits por canal sem necessidade. Reduzido a 8 bits:
+1,80 MB → 216 KB com diferença zero.
+
+**Comportamento.** O institucional tem controles e `preload="none"`, então só baixa
+quando alguém dá play. Os quatro laços rodam mudos, sem controles, e um
+`IntersectionObserver` os inicia ao entrar em cena e pausa ao sair — fora da tela seria
+rede e processador à toa. Com `prefers-reduced-motion: reduce` nenhum toca sozinho: ficam
+no pôster e ganham controles, para continuarem acessíveis a quem quiser ver.
+
+**Pôsteres.** Primeiro quadro de cada laço, salvos em WebP (~170 KB). O do passo 4 é o
+quadro 120 — o primeiro é fundo verde vazio e a caixa pareceria quebrada.
 
 ## Um ponto de atenção
 

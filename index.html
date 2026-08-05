@@ -262,19 +262,14 @@
       <p class="eyebrow">A plataforma</p>
       <h2 class="h2">Como o HelloGrowth <strong>trabalha por você</strong></h2>
 
-      <!--
-        PLACEHOLDER DE VÍDEO — 16:9
-        Substituir a div abaixo por:
-        <video class="platform-video" controls playsinline preload="metadata" poster="assets/poster-motion.jpg">
-          <source src="assets/motion-hellogrowth-v8.webm" type="video/webm">
-          <source src="assets/motion-hellogrowth-v8.mp4" type="video/mp4">
-        </video>
-      -->
-      <div class="ph ph--video">
-        <span class="ph__play" aria-hidden="true">▶</span>
-        <p class="ph__label">PLACEHOLDER — Motion institucional da plataforma</p>
-        <p class="ph__hint">Substituir pelo Motion Hello Growth V8 (exportar .mov → .mp4/.webm)</p>
-      </div>
+      <!-- Motion Hello Growth (V10). O .mov entregue já vinha em H.264, então
+           aqui só trocou o invólucro para .mp4 — nenhum pixel foi recodificado. -->
+      <video class="platform-video" controls playsinline preload="none"
+             poster="assets/video/capa-motion.png">
+        <source src="assets/video/motion-hellogrowth.mp4" type="video/mp4">
+        <p class="video-alt">Seu navegador não reproduz este vídeo.
+          <a href="assets/video/motion-hellogrowth.mp4">Baixar o Motion institucional</a>.</p>
+      </video>
     </div>
   </section>
 
@@ -289,11 +284,12 @@
           <h3 class="step__title">Formulários prontos em minutos</h3>
           <p class="step__text">Você usa templates prontos pra sua área ou responde como numa conversa e a IA monta os formulários de pré e pós-venda automaticamente, sem precisar saber escrever perguntas.</p>
         </div>
-        <div class="ph ph--gif">
-          <span class="ph__spark" aria-hidden="true">✦</span>
-          <p class="ph__label">PLACEHOLDER — GIF criação via IA</p>
-          <p class="ph__hint">gif-passo1.gif</p>
-        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster1.webp"
+               aria-label="Demonstração: a IA montando os formulários de pré e pós-venda.">
+          <source src="assets/video/passo1.webm" type="video/webm">
+          <source src="assets/video/passo1.mp4" type="video/mp4">
+        </video>
       </article>
 
       <hr class="step-rule">
@@ -305,11 +301,12 @@
           <h3 class="step__title">Chegue antes do atendimento</h3>
           <p class="step__text">Compartilhe com o paciente por WhatsApp antes da consulta inicial, por e-mail, QR Code, site ou até mesmo na sala de espera.</p>
         </div>
-        <div class="ph ph--gif">
-          <span class="ph__spark" aria-hidden="true">✦</span>
-          <p class="ph__label">PLACEHOLDER — GIF Oportunidades</p>
-          <p class="ph__hint">gif-passo2.gif</p>
-        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster2.webp"
+               aria-label="Demonstração: o formulário chegando ao paciente e o quadro de oportunidades.">
+          <source src="assets/video/passo2.webm" type="video/webm">
+          <source src="assets/video/passo2.mp4" type="video/mp4">
+        </video>
       </article>
 
       <hr class="step-rule">
@@ -321,11 +318,12 @@
           <h3 class="step__title">Decisão na mão, não no achismo</h3>
           <p class="step__text">O time recebe tudo organizado: potencial de gasto, mensagem sugerida, qual negociação priorizar. No pós, NPS automático</p>
         </div>
-        <div class="ph ph--gif">
-          <span class="ph__spark" aria-hidden="true">✦</span>
-          <p class="ph__label">PLACEHOLDER — GIF entrando no cliente no quadro de oportunidades</p>
-          <p class="ph__hint">gif-passo3.gif</p>
-        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster3.webp"
+               aria-label="Demonstração: abrindo um cliente dentro do quadro de oportunidades.">
+          <source src="assets/video/passo3.webm" type="video/webm">
+          <source src="assets/video/passo3.mp4" type="video/mp4">
+        </video>
       </article>
 
       <hr class="step-rule">
@@ -337,11 +335,12 @@
           <h3 class="step__title">Um painel para tudo</h3>
           <p class="step__text">Prioridades, oportunidades e satisfação num lugar só, com sugestões de ação.</p>
         </div>
-        <div class="ph ph--gif">
-          <span class="ph__spark" aria-hidden="true">✦</span>
-          <p class="ph__label">PLACEHOLDER — GIF dashboard e insights</p>
-          <p class="ph__hint">gif-passo4.gif</p>
-        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster4.webp"
+               aria-label="Demonstração: o painel com prioridades, oportunidades e NPS.">
+          <source src="assets/video/passo4.webm" type="video/webm">
+          <source src="assets/video/passo4.mp4" type="video/mp4">
+        </video>
       </article>
 
     </div>
@@ -429,11 +428,37 @@
 (function () {
   window.__hgAnim = true;
   var root = document.documentElement;
+  var temIO = 'IntersectionObserver' in window;
+  var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loops = document.querySelectorAll('.step-loop');
+
+  // Os vídeos dos passos fazem o papel dos antigos GIFs: rodam em laço, mudos,
+  // sem controles. Mas só enquanto estão à vista — fora da tela seriam rede e
+  // processador gastos à toa. Como carregam com preload="none", nada é baixado
+  // antes da hora.
+  if (semMovimento || !temIO) {
+    // Aqui o laço automático seria justamente o que a pessoa pediu para não
+    // acontecer, então o vídeo fica parado no pôster e ganha controles.
+    Array.prototype.forEach.call(loops, function (v) { v.controls = true; });
+  } else {
+    var loopIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          // navegadores podem recusar o play(); a promessa rejeitada não pode
+          // virar erro solto no console
+          var p = e.target.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          e.target.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    Array.prototype.forEach.call(loops, function (v) { loopIO.observe(v); });
+  }
 
   // Sem suporte a IntersectionObserver ou com movimento reduzido, a página
   // aparece inteira de uma vez — que é o comportamento correto nos dois casos.
-  if (!('IntersectionObserver' in window) ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (!temIO || semMovimento) {
     root.classList.remove('js');
     return;
   }
@@ -458,8 +483,8 @@
     ['.phone',               ':self',                                  0, 100],
     ['.phone__chat',         ':scope > *',                           330, 500],
     ['.feat-grid',           '.feat',                                 90,   0],
-    ['#plataforma .wrap',    '.eyebrow, .h2, .ph--video',             90,   0],
-    ['.step',                '.step__num, .step__tag, .step__title, .step__text, .ph--gif', 80, 0],
+    ['#plataforma .wrap',    '.eyebrow, .h2, .platform-video',        90,   0],
+    ['.step',                '.step__num, .step__tag, .step__title, .step__text, .step-loop', 80, 0],
     ['.step-rule',           ':self',                                  0,   0, 'line'],
     ['#clientes .wrap',      '.eyebrow',                               0,   0],
     ['.proof-head',          ':scope > *',                           140,   0],
