@@ -32,6 +32,10 @@ python3 -m http.server 8000
 # → http://localhost:8000
 ```
 
+Para abrir sem servidor nenhum existe o **`apresentacao.html`**: mesma página, com CSS,
+fontes e imagens embutidos, só os vídeos ficam em `assets/video/`. Dois cliques e abre.
+É gerado a partir do `index.html`, então é ele que deve ser editado — nunca o gerado.
+
 ## O que ainda precisa ser preenchido
 
 | Local | O que falta | Onde mexer |
