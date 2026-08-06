@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HelloGrowth — Mais reputação. Mais avaliações. Mais vendas.</title>
+<meta name="description" content="A inteligência comercial que o seu software de gestão não tem, antes do paciente entrar e depois que ele sai. Pré-venda, atendimento e pós-venda para clínicas odontológicas.">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="HelloGrowth — Mais reputação. Mais avaliações. Mais vendas.">
+<meta property="og:description" content="A inteligência comercial que o seu software de gestão não tem, antes do paciente entrar e depois que ele sai.">
+<meta property="og:url" content="https://hellogrowth.site/">
+<meta name="theme-color" content="#05211c">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+
+<script>
+  /* Só esconde o que vai ser animado se houver JS. O timeout é a rede de
+     segurança: se o script de animação não rodar, tudo volta à vista. */
+  document.documentElement.classList.add('js');
+  setTimeout(function () {
+    if (!window.__hgAnim) document.documentElement.classList.remove('js');
+  }, 2500);
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ============================ TOPO / HERO ============================ -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <img src="assets/logo-hellogrowth.svg" width="308" height="37" alt="HelloGrowth">
+    </a>
+    <p class="kicker">Apresentação comercial · 2026</p>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          <span class="hero-line">Mais <strong>reputação.</strong></span>
+          <span class="hero-line">Mais <strong>avaliações.</strong></span>
+          <span class="hero-line hero-line--accent"><em>Mais vendas.</em></span>
+        </h1>
+        <p class="hero-sub">A inteligência comercial que o seu software de gestão não tem, antes do paciente entrar e depois que ele sai.</p>
+        <div class="btn-row">
+          <!-- TODO: trocar por link real de agendamento (Calendly / WhatsApp) -->
+          <a class="btn btn--lime" href="#agendar">Agendar demonstração <span aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="#plataforma">Conhecer a HelloGrowth</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <!-- notebook parado; os cards flutuam por cima, cada um no seu ritmo -->
+        <div class="hero-stage">
+          <picture>
+            <source type="image/webp"
+                    srcset="assets/hero-laptop-1200.webp 1200w,
+                            assets/hero-laptop-2400.webp 2400w"
+                    sizes="(min-width: 960px) 55vw, 100vw">
+            <img class="hero-stage__base" src="assets/hero-laptop.png"
+                 width="1200" height="815" fetchpriority="high" decoding="async"
+                 alt="Notebook exibindo o dashboard da HelloGrowth, com cards de oportunidades geradas, vendas convertidas e NPS registrados.">
+          </picture>
+
+          <span class="hero-card" style="--x:67.57%;--y:2.37%;--w:17.0%">
+            <img src="assets/hero-card-oportunidades.webp" alt="" aria-hidden="true"
+                 style="--dur:8.2s;--delay:0s;--amp:16%;--ampx:1.4%;--rot:0.5deg">
+          </span>
+          <span class="hero-card" style="--x:72.05%;--y:26.57%;--w:10.79%">
+            <img src="assets/hero-card-promotores.webp" alt="" aria-hidden="true"
+                 style="--dur:4.8s;--delay:-2.1s;--amp:26%;--ampx:-2.6%;--rot:-1.2deg">
+          </span>
+          <span class="hero-card" style="--x:27.82%;--y:34.0%;--w:10.16%">
+            <img src="assets/hero-card-leads.webp" alt="" aria-hidden="true"
+                 style="--dur:6.9s;--delay:-4.3s;--amp:24%;--ampx:2.2%;--rot:1deg">
+          </span>
+          <span class="hero-card" style="--x:82.02%;--y:45.33%;--w:12.65%">
+            <img src="assets/hero-card-nps.webp" alt="" aria-hidden="true"
+                 style="--dur:5.6s;--delay:-1.2s;--amp:22%;--ampx:-1.8%;--rot:-0.7deg">
+          </span>
+          <span class="hero-card" style="--x:29.5%;--y:48.95%;--w:17.0%">
+            <img src="assets/hero-card-vendas.webp" alt="" aria-hidden="true"
+                 style="--dur:7.5s;--delay:-3.1s;--amp:15%;--ampx:1.2%;--rot:0.6deg">
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ POR QUE EXISTIMOS ============================ -->
+  <section class="band-teal">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--on-teal">Por que existimos?</p>
+      <h2 class="band-teal__lead">
+        <strong>Dentista excelente</strong> perde paciente para os seus concorrentes porque não tem <em class="lime">processo e reputação.</em>
+      </h2>
+      <p class="band-teal__note">A HelloGrowth existe para que a qualidade do seu atendimento se converta em crescimento.</p>
+    </div>
+  </section>
+
+  <!-- ============================ SUAS DORES ============================ -->
+  <section class="sec sec--ink" id="dores">
+    <div class="wrap">
+      <p class="eyebrow">Suas dores</p>
+      <h2 class="h2">Reconhece alguma <em class="lime">dessas cenas?</em></h2>
+
+      <ul class="pain-grid">
+        <li class="pain-card">
+          <p class="pain-card__tag">Dor 01</p>
+          <h3 class="pain-card__title">Vendas sem contexto</h3>
+          <p class="pain-card__text">Atende sem saber o que a pessoa procura de verdade, então possíveis pacientes sem perfil mapeado não viram clientes.</p>
+        </li>
+        <li class="pain-card">
+          <p class="pain-card__tag">Dor 02</p>
+          <h3 class="pain-card__title">Deixando dinheiro na mesa</h3>
+          <p class="pain-card__text">Tem paciente com potencial pra fechar mais, mas isso não fica claro no dia a dia.</p>
+        </li>
+        <li class="pain-card">
+          <p class="pain-card__tag">Dor 03</p>
+          <h3 class="pain-card__title">Falta de feedback organizado</h3>
+          <p class="pain-card__text">O problema só aparece quando já virou reclamação.</p>
+        </li>
+        <li class="pain-card">
+          <p class="pain-card__tag">Dor 04</p>
+          <h3 class="pain-card__title">Poucas avaliações no Google</h3>
+          <p class="pain-card__text">Você entrega bem, mas quase ninguém avalia.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================ COMO FUNCIONA ============================ -->
+  <section class="sec sec--ink" id="como-funciona">
+    <div class="wrap">
+      <p class="eyebrow">Como funciona</p>
+      <h2 class="h2">Um ciclo que o software de gestão <strong>não fecha</strong></h2>
+      <p class="sec__lead">Agenda e prontuário cuidam do atendimento. A HelloGrowth ocupa o que vem antes e o que vem depois dele.</p>
+
+      <ol class="stage-flow">
+        <li class="stage">
+          <p class="stage__tag">Pré-venda</p>
+          <h3 class="stage__title">Contexto antes do atendimento</h3>
+          <p class="stage__text">O paciente responde perguntas rápidas e a recepção já sabe o que ele procura e quem priorizar.</p>
+        </li>
+        <li class="stage-arrow" aria-hidden="true">→</li>
+        <li class="stage">
+          <p class="stage__tag">Atendimento</p>
+          <h3 class="stage__title">Recepção que vende</h3>
+          <p class="stage__text">Com contexto na mão, a recepção deixa de só agendar e passa a vender.</p>
+        </li>
+        <li class="stage-arrow" aria-hidden="true">→</li>
+        <li class="stage">
+          <p class="stage__tag">Pós-venda</p>
+          <h3 class="stage__title">Satisfação vira reputação</h3>
+          <p class="stage__text">Satisfação medida no automático. Paciente satisfeito vai pra avaliação 5 estrelas no Google.</p>
+        </li>
+      </ol>
+
+      <p class="pullquote">Atendimento nota 10 com 3,8 estrelas <em class="lime">perde</em> para o concorrente com processo e 4,9. A gente fecha essa conta.</p>
+    </div>
+  </section>
+
+  <!-- ============================ AGENTE DE IA ============================ -->
+  <section class="sec sec--paper" id="agente-ia">
+    <div class="wrap ai-grid">
+      <div class="ai-copy">
+        <p class="eyebrow">Agente de IA</p>
+        <h2 class="h2 h2--ai">
+          <span>Uma atendente de</span>
+          <span>IA no <strong>WHATSAPP</strong></span>
+          <span>da clínica</span>
+        </h2>
+        <p class="ai-text">Ela confirma consultas, envia a anamnese, cobra resposta e mede satisfação, o trabalho que hoje depende da secretária e é onde a operação mais falha. E responde o paciente na hora, <strong>inclusive fora do horário comercial.</strong></p>
+        <p class="ai-flag">Vira o agente de IA próprio da SUA CLÍNICA</p>
+
+        <ul class="pill-flow">
+          <li class="pill"><svg class="pill__icon" viewBox="0 0 22 16" width="22" height="16" aria-hidden="true"><path d="M2 8.6 6.9 13.5 20 2.2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmação<br>de consulta</li>
+          <li class="pill"><svg class="pill__icon" viewBox="0 0 34 16" width="34" height="16" aria-hidden="true"><path d="M4.00 6.80Q4.00 10.00 7.20 10.00Q4.00 10.00 4.00 13.20Q4.00 10.00 0.80 10.00Q4.00 10.00 4.00 6.80ZM15.00 3.40Q15.00 8.00 19.60 8.00Q15.00 8.00 15.00 12.60Q15.00 8.00 10.40 8.00Q15.00 8.00 15.00 3.40ZM28.00 0.50Q28.00 6.50 34.00 6.50Q28.00 6.50 28.00 12.50Q28.00 6.50 22.00 6.50Q28.00 6.50 28.00 0.50Z" fill="currentColor"/></svg>Anamnese na<br>sequência</li>
+          <li class="pill"><svg class="pill__icon" viewBox="0 0 18 16" width="18" height="16" aria-hidden="true"><path d="M9.00 1.20L10.82 6.09L16.04 6.31L11.95 9.56L13.35 14.59L9.00 11.70L4.65 14.59L6.05 9.56L1.96 6.31L7.18 6.09Z" fill="currentColor"/></svg>NPS com filtro<br>inteligente</li>
+        </ul>
+      </div>
+
+      <!-- Mock de conversa do WhatsApp, reconstruído em HTML/CSS -->
+      <div class="phone" role="img" aria-label="Simulação de conversa no WhatsApp entre a atendente de IA Julia, da Clínica Sorriso, e a paciente Mariana: confirmação de consulta, envio da anamnese e pesquisa de NPS após o atendimento.">
+        <div class="phone__bar">
+          <span class="phone__avatar" aria-hidden="true">J</span>
+          <span class="phone__who">
+            <span class="phone__name">Julia · Clínica Sorriso</span>
+            <span class="phone__status">online</span>
+          </span>
+        </div>
+        <div class="phone__chat">
+          <div class="msg msg--out">
+            <p>Oi, Mariana! Tudo bem? Passando pra confirmar sua consulta amanhã às 14h com a Dra. Paula. Posso confirmar? 😊</p>
+            <time>18:02</time>
+          </div>
+
+          <div class="msg msg--in msg--audio">
+            <span class="audio">
+              <span class="audio__play" aria-hidden="true">▶</span>
+              <svg class="audio__wave" aria-hidden="true" viewBox="0 0 154.69 22.595" preserveAspectRatio="none" fill="#d9d9d9"><rect x="0.00" y="5.21" width="0.869" height="12.17" rx="0.434"/><rect x="2.61" y="3.48" width="0.869" height="15.64" rx="0.434"/><rect x="5.21" y="4.35" width="0.869" height="13.90" rx="0.434"/><rect x="7.82" y="6.08" width="0.869" height="11.30" rx="0.434"/><rect x="10.43" y="4.35" width="0.869" height="14.77" rx="0.434"/><rect x="13.03" y="5.21" width="0.869" height="13.04" rx="0.434"/><rect x="15.64" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="18.25" y="3.48" width="0.869" height="15.64" rx="0.434"/><rect x="20.86" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="23.46" y="0.87" width="0.869" height="20.86" rx="0.434"/><rect x="26.07" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="28.68" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="31.28" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="33.89" y="0.87" width="0.869" height="20.86" rx="0.434"/><rect x="36.50" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="39.11" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="41.71" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="44.32" y="3.48" width="0.869" height="15.64" rx="0.434"/><rect x="46.93" y="5.21" width="0.869" height="13.04" rx="0.434"/><rect x="49.53" y="4.35" width="0.869" height="13.90" rx="0.434"/><rect x="52.14" y="3.48" width="0.869" height="15.64" rx="0.434"/><rect x="54.75" y="6.08" width="0.869" height="10.43" rx="0.434"/><rect x="57.36" y="3.48" width="0.869" height="16.51" rx="0.434"/><rect x="59.96" y="4.35" width="0.869" height="14.77" rx="0.434"/><rect x="62.57" y="6.08" width="0.869" height="11.30" rx="0.434"/><rect x="65.18" y="5.21" width="0.869" height="13.04" rx="0.434"/><rect x="67.78" y="3.48" width="0.869" height="15.64" rx="0.434"/><rect x="70.39" y="2.61" width="0.869" height="18.25" rx="0.434"/><rect x="73.00" y="0.87" width="0.869" height="20.86" rx="0.434"/><rect x="75.61" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="78.21" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="80.82" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="83.43" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="86.03" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="88.64" y="2.61" width="0.869" height="18.25" rx="0.434"/><rect x="91.25" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="93.86" y="3.48" width="0.869" height="16.51" rx="0.434"/><rect x="96.46" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="99.07" y="0.87" width="0.869" height="20.86" rx="0.434"/><rect x="101.68" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="104.28" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="106.89" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="109.50" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="112.11" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="114.71" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="117.32" y="2.61" width="0.869" height="18.25" rx="0.434"/><rect x="119.93" y="3.48" width="0.869" height="16.51" rx="0.434"/><rect x="122.53" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="125.14" y="0.87" width="0.869" height="20.86" rx="0.434"/><rect x="127.75" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="130.36" y="2.61" width="0.869" height="18.25" rx="0.434"/><rect x="132.96" y="1.74" width="0.869" height="19.12" rx="0.434"/><rect x="135.57" y="2.61" width="0.869" height="17.38" rx="0.434"/><rect x="138.18" y="1.74" width="0.869" height="19.99" rx="0.434"/><rect x="140.78" y="2.61" width="0.869" height="18.25" rx="0.434"/><rect x="143.39" y="4.35" width="0.869" height="14.77" rx="0.434"/><rect x="146.00" y="5.21" width="0.869" height="12.17" rx="0.434"/><rect x="148.61" y="5.21" width="0.869" height="13.04" rx="0.434"/><rect x="151.21" y="6.08" width="0.869" height="11.30" rx="0.434"/><rect x="153.82" y="4.35" width="0.869" height="13.90" rx="0.434"/></svg>
+              <span class="audio__len">0:18</span>
+            </span>
+            <time>18:15</time>
+          </div>
+
+          <div class="msg msg--out">
+            <p>Confirmadíssimo! ✅ Antes da consulta, me responde esse formulário rapidinho? Ajuda a Dra. Paula a já saber o que você precisa: hellogrowth.site/f/anamnese</p>
+            <time>18:16</time>
+          </div>
+
+          <p class="chat-divider"><span>3h após a consulta</span></p>
+
+          <div class="msg msg--out">
+            <p>Mariana, de 0 a 10, qual a chance de você indicar a Clínica Sorriso pra um amigo?</p>
+            <time>17:20</time>
+          </div>
+
+          <div class="msg msg--in">
+            <p>10! Fui super bem atendida 💚</p>
+            <time>17:31</time>
+          </div>
+
+          <div class="msg msg--out">
+            <p>Obrigada por ter vindo! Você se importa de responder uma pesquisa rápida pra nos ajudar a melhorar?</p>
+            <time>17:31</time>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <ul class="feat-grid">
+        <li class="feat">
+          <h3 class="feat__title"><span aria-hidden="true">🎙</span> Entende áudio</h3>
+          <p class="feat__text">Escuta e transcreve as mensagens de voz do paciente, e responde em seguida.</p>
+        </li>
+        <li class="feat">
+          <h3 class="feat__title"><span aria-hidden="true">⚠</span> Alerta se ficar no vácuo</h3>
+          <p class="feat__text">Paciente não respondeu em qualquer fase? A atendente recebe um alerta automático.</p>
+        </li>
+        <li class="feat">
+          <h3 class="feat__title"><span aria-hidden="true">↻</span> Retomada automática</h3>
+          <p class="feat__text">Depois que um humano assume a conversa, a IA volta a atuar em 24h (ajustável).</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================ A PLATAFORMA ============================ -->
+  <section class="sec sec--ink" id="plataforma">
+    <div class="wrap">
+      <p class="eyebrow">A plataforma</p>
+      <h2 class="h2">Como o HelloGrowth <strong>trabalha por você</strong></h2>
+
+      <!-- Motion Hello Growth (V10). O .mov entregue já vinha em H.264, então
+           aqui só trocou o invólucro para .mp4 — nenhum pixel foi recodificado. -->
+      <video class="platform-video" controls playsinline preload="none"
+             poster="assets/video/capa-motion.png">
+        <source src="assets/video/motion-hellogrowth.mp4" type="video/mp4">
+        <p class="video-alt">Seu navegador não reproduz este vídeo.
+          <a href="assets/video/motion-hellogrowth.mp4">Baixar o Motion institucional</a>.</p>
+      </video>
+    </div>
+  </section>
+
+  <!-- ============================ PASSOS 01–04 ============================ -->
+  <section class="sec steps" id="passos">
+    <div class="wrap">
+
+      <article class="step">
+        <div class="step__copy">
+          <p class="step__num"><svg class="step__num-art" role="img" aria-label="Passo 1" viewBox="0.99 -58.91 88.65 61.08" style="--w:1.1366em"><path d="M23.12 0.91Q15.27 0.91 10.25 -2.63Q5.22 -6.17 3.31 -12.72Q1.41 -19.27 2.89 -28.34Q4.42 -37.44 8.49 -44.01Q12.57 -50.58 18.78 -54.12Q24.98 -57.66 32.83 -57.66Q40.71 -57.66 45.72 -54.12Q50.73 -50.58 52.63 -44.01Q54.54 -37.44 53.02 -28.34Q51.53 -19.27 47.46 -12.70Q43.38 -6.13 37.19 -2.61Q31.00 0.91 23.12 0.91ZM88.40 -56.75 78.99 0.00H63.76L70.84 -42.85H70.76L56.86 -35.12L59.03 -48.22L74.38 -56.75ZM25.14 -11.27Q28.30 -11.27 30.91 -13.33Q33.52 -15.39 35.36 -19.21Q37.21 -23.04 38.09 -28.34Q38.96 -33.67 38.37 -37.50Q37.78 -41.32 35.88 -43.40Q33.97 -45.47 30.81 -45.47Q27.69 -45.47 25.06 -43.40Q22.43 -41.32 20.57 -37.50Q18.70 -33.67 17.82 -28.34Q16.95 -23.04 17.54 -19.21Q18.13 -15.39 20.07 -13.33Q22.01 -11.27 25.14 -11.27Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></p>
+          <p class="step__tag">Crie com IA</p>
+          <h3 class="step__title">Formulários prontos em minutos</h3>
+          <p class="step__text">Você usa templates prontos pra sua área ou responde como numa conversa e a IA monta os formulários de pré e pós-venda automaticamente, sem precisar saber escrever perguntas.</p>
+        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster1.webp"
+               aria-label="Demonstração: a IA montando os formulários de pré e pós-venda.">
+          <source src="assets/video/passo1.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
+          <source src="assets/video/passo1.mp4" type="video/mp4">
+        </video>
+      </article>
+
+      <hr class="step-rule">
+
+      <article class="step step--reverse">
+        <div class="step__copy">
+          <p class="step__num"><svg class="step__num-art" role="img" aria-label="Passo 2" viewBox="0.99 -58.91 103.18 61.08" style="--w:1.3228em"><path d="M23.12 0.91Q15.27 0.91 10.25 -2.63Q5.22 -6.17 3.31 -12.72Q1.41 -19.27 2.89 -28.34Q4.42 -37.44 8.49 -44.01Q12.57 -50.58 18.78 -54.12Q24.98 -57.66 32.83 -57.66Q40.71 -57.66 45.72 -54.12Q50.73 -50.58 52.63 -44.01Q54.54 -37.44 53.02 -28.34Q51.53 -19.27 47.46 -12.70Q43.38 -6.13 37.19 -2.61Q31.00 0.91 23.12 0.91ZM52.67 0.00 54.50 -11.04 78.69 -28.26Q80.40 -29.48 82.44 -30.96Q84.47 -32.45 86.09 -34.32Q87.71 -36.18 88.09 -38.54Q88.44 -40.68 87.81 -42.24Q87.18 -43.80 85.73 -44.64Q84.28 -45.47 82.15 -45.47Q79.87 -45.47 77.87 -44.41Q75.87 -43.34 74.50 -41.29Q73.12 -39.23 72.63 -36.26H58.12Q59.22 -42.85 62.58 -47.65Q65.93 -52.44 71.14 -55.05Q76.36 -57.66 83.03 -57.66Q89.58 -57.66 94.32 -55.49Q99.06 -53.32 101.33 -49.25Q103.59 -45.17 102.64 -39.46Q102.11 -36.33 100.83 -33.76Q99.56 -31.19 97.60 -28.91Q95.63 -26.62 93.02 -24.45Q90.42 -22.28 87.22 -19.96L76.82 -12.34L76.78 -12.26H98.26L96.24 0.00ZM25.14 -11.27Q28.30 -11.27 30.91 -13.33Q33.52 -15.39 35.36 -19.21Q37.21 -23.04 38.09 -28.34Q38.96 -33.67 38.37 -37.50Q37.78 -41.32 35.88 -43.40Q33.97 -45.47 30.81 -45.47Q27.69 -45.47 25.06 -43.40Q22.43 -41.32 20.57 -37.50Q18.70 -33.67 17.82 -28.34Q16.95 -23.04 17.54 -19.21Q18.13 -15.39 20.07 -13.33Q22.01 -11.27 25.14 -11.27Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></p>
+          <p class="step__tag">Envie</p>
+          <h3 class="step__title">Chegue antes do atendimento</h3>
+          <p class="step__text">Compartilhe com o paciente por WhatsApp antes da consulta inicial, por e-mail, QR Code, site ou até mesmo na sala de espera.</p>
+        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster2.webp"
+               aria-label="Demonstração: o formulário chegando ao paciente e o quadro de oportunidades.">
+          <source src="assets/video/passo2.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
+          <source src="assets/video/passo2.mp4" type="video/mp4">
+        </video>
+      </article>
+
+      <hr class="step-rule">
+
+      <article class="step">
+        <div class="step__copy">
+          <p class="step__num"><svg class="step__num-art" role="img" aria-label="Passo 3" viewBox="0.99 -58.91 103.66 61.08" style="--w:1.3290em"><path d="M23.12 0.91Q15.27 0.91 10.25 -2.63Q5.22 -6.17 3.31 -12.72Q1.41 -19.27 2.89 -28.34Q4.42 -37.44 8.49 -44.01Q12.57 -50.58 18.78 -54.12Q24.98 -57.66 32.83 -57.66Q40.71 -57.66 45.72 -54.12Q50.73 -50.58 52.63 -44.01Q54.54 -37.44 53.02 -28.34Q51.53 -19.27 47.46 -12.70Q43.38 -6.13 37.19 -2.61Q31.00 0.91 23.12 0.91ZM74.88 0.91Q66.76 0.91 62.10 -1.98Q57.43 -4.88 55.76 -9.54Q54.08 -14.21 54.96 -19.50H69.81Q69.35 -16.83 70.00 -14.89Q70.65 -12.95 72.29 -11.92Q73.92 -10.89 76.44 -10.89Q78.72 -10.89 80.59 -11.69Q82.46 -12.49 83.67 -13.92Q84.89 -15.35 85.20 -17.18Q85.50 -19.08 84.67 -20.49Q83.83 -21.90 82.02 -22.68Q80.21 -23.46 77.54 -23.46H72.06L73.81 -34.12H79.29Q81.85 -34.12 83.79 -34.83Q85.73 -35.53 86.91 -36.85Q88.09 -38.16 88.40 -39.99Q88.70 -41.82 88.04 -43.23Q87.37 -44.64 85.96 -45.44Q84.55 -46.24 82.53 -46.24Q80.44 -46.24 78.65 -45.36Q76.86 -44.48 75.64 -42.92Q74.42 -41.36 74.08 -39.30H59.30Q60.18 -44.52 63.41 -48.67Q66.65 -52.83 71.93 -55.24Q77.20 -57.66 84.13 -57.66Q90.42 -57.66 94.99 -55.64Q99.56 -53.62 101.77 -50.08Q103.97 -46.54 103.21 -41.89Q102.38 -36.71 98.59 -33.53Q94.80 -30.35 89.84 -29.78V-29.67Q94.03 -29.25 96.62 -27.27Q99.21 -25.29 100.24 -22.34Q101.27 -19.39 100.70 -16.00Q99.90 -11.16 96.40 -7.33Q92.89 -3.50 87.37 -1.29Q81.85 0.91 74.88 0.91ZM25.14 -11.27Q28.30 -11.27 30.91 -13.33Q33.52 -15.39 35.36 -19.21Q37.21 -23.04 38.09 -28.34Q38.96 -33.67 38.37 -37.50Q37.78 -41.32 35.88 -43.40Q33.97 -45.47 30.81 -45.47Q27.69 -45.47 25.06 -43.40Q22.43 -41.32 20.57 -37.50Q18.70 -33.67 17.82 -28.34Q16.95 -23.04 17.54 -19.21Q18.13 -15.39 20.07 -13.33Q22.01 -11.27 25.14 -11.27Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></p>
+          <p class="step__tag">Colete dados</p>
+          <h3 class="step__title">Decisão na mão, não no achismo</h3>
+          <p class="step__text">O time recebe tudo organizado: potencial de gasto, mensagem sugerida, qual negociação priorizar. No pós, NPS automático</p>
+        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster3.webp"
+               aria-label="Demonstração: abrindo um cliente dentro do quadro de oportunidades.">
+          <source src="assets/video/passo3.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
+          <source src="assets/video/passo3.mp4" type="video/mp4">
+        </video>
+      </article>
+
+      <hr class="step-rule">
+
+      <article class="step step--reverse">
+        <div class="step__copy">
+          <p class="step__num"><svg class="step__num-art" role="img" aria-label="Passo 4" viewBox="0.99 -58.91 105.15 61.08" style="--w:1.3480em"><path d="M23.12 0.91Q15.27 0.91 10.25 -2.63Q5.22 -6.17 3.31 -12.72Q1.41 -19.27 2.89 -28.34Q4.42 -37.44 8.49 -44.01Q12.57 -50.58 18.78 -54.12Q24.98 -57.66 32.83 -57.66Q40.71 -57.66 45.72 -54.12Q50.73 -50.58 52.63 -44.01Q54.54 -37.44 53.02 -28.34Q51.53 -19.27 47.46 -12.70Q43.38 -6.13 37.19 -2.61Q31.00 0.91 23.12 0.91ZM54.08 -10.97 56.06 -22.93 84.78 -56.75H104.24L98.58 -22.62H104.89L102.98 -10.97H96.65L94.83 0.00H79.98L81.81 -10.97ZM25.14 -11.27Q28.30 -11.27 30.91 -13.33Q33.52 -15.39 35.36 -19.21Q37.21 -23.04 38.09 -28.34Q38.96 -33.67 38.37 -37.50Q37.78 -41.32 35.88 -43.40Q33.97 -45.47 30.81 -45.47Q27.69 -45.47 25.06 -43.40Q22.43 -41.32 20.57 -37.50Q18.70 -33.67 17.82 -28.34Q16.95 -23.04 17.54 -19.21Q18.13 -15.39 20.07 -13.33Q22.01 -11.27 25.14 -11.27ZM87.03 -42.58H86.99L70.31 -22.70L70.27 -22.62H83.71Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></p>
+          <p class="step__tag">Controle e evolua</p>
+          <h3 class="step__title">Um painel para tudo</h3>
+          <p class="step__text">Prioridades, oportunidades e satisfação num lugar só, com sugestões de ação.</p>
+        </div>
+        <video class="step-loop" loop muted playsinline preload="none"
+               poster="assets/video/poster4.webp"
+               aria-label="Demonstração: o painel com prioridades, oportunidades e NPS.">
+          <source src="assets/video/passo4.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
+          <source src="assets/video/passo4.mp4" type="video/mp4">
+        </video>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================ PROVA SOCIAL ============================ -->
+  <section class="sec sec--paper" id="clientes">
+    <div class="wrap">
+      <p class="eyebrow">Quem usa, não larga</p>
+
+      <div class="proof-head">
+        <div class="proof-stat">
+          <p class="proof-stat__num">+100</p>
+          <p class="proof-stat__label">clínicas atendidas</p>
+        </div>
+        <p class="proof-badge">Homologada pela <strong>BR Clin</strong>, rede com mais de 5.000 clínicas odontológicas no Brasil.</p>
+      </div>
+
+      <ul class="quote-grid">
+        <li class="quote">
+          <p class="quote__stars" aria-label="5 de 5 estrelas"><span aria-hidden="true">★★★★★</span></p>
+          <blockquote class="quote__text">“A HelloGrowth tirou nosso atendimento do improviso. Hoje o paciente já chega com contexto, o time atende mais rápido e <em>a conversão melhorou</em>. No pós-venda, as avaliações no Google começaram a entrar com frequência e a reputação puxou mais procura.”</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">CH</span>
+            <span>
+              <span class="quote__name">Camila Huk</span>
+              <span class="quote__role">Sócia · Clínica Huk · @clinicahuk</span>
+            </span>
+          </div>
+        </li>
+        <li class="quote">
+          <p class="quote__stars" aria-label="5 de 5 estrelas"><span aria-hidden="true">★★★★★</span></p>
+          <blockquote class="quote__text">“A HelloGrowth colocou ordem no nosso fluxo. Com o pré-venda, ficou claro <em>quem está pronto pra fechar</em> e o que oferecer. No pós-venda, as avaliações 5 estrelas cresceram, a nota subiu e vieram mais agendamentos pelo Google.”</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">DE</span>
+            <span>
+              <span class="quote__name">Diego Elkek</span>
+              <span class="quote__role">Sócio · Clínica GioLaser Bonfim · @gio.poabomfim</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================ CTA FINAL ============================ -->
+  <section class="sec cta-final" id="agendar">
+    <div class="wrap cta-final__inner">
+      <h2 class="cta-final__title">
+        <span>Vamos vender <strong>mais</strong></span>
+        <span>e <em class="lime">melhor</em>, juntos?</span>
+      </h2>
+      <p class="cta-final__sub">Agende um horário e veja o HelloGrowth funcionando com a realidade da sua clínica.</p>
+      <!-- TODO: trocar por link real de agendamento (Calendly / WhatsApp) -->
+      <a class="btn btn--lime btn--lg" href="#agendar">Agendar demonstração <span aria-hidden="true">→</span></a>
+      <p class="cta-final__micro">Sem compromisso · Demonstração gratuita</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================ RODAPÉ ============================ -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">HelloGrowth</p>
+      <p class="footer-line">Mais reputação. Mais avaliações. Mais vendas.</p>
+    </div>
+    <div>
+      <p class="footer-brand">Thales Farias — CEO</p>
+      <p class="footer-line">
+        <a href="tel:+554799091798">(47) 99909-1798</a> ·
+        <a href="mailto:contato@miraiconsult.com">contato@miraiconsult.com</a>
+      </p>
+      <p class="footer-line"><a href="https://hellogrowth.site">hellogrowth.site</a></p>
+    </div>
+    <div>
+      <p class="footer-line">CNPJ 08.563.535/0001-82</p>
+      <p class="footer-line">Powered by MirAI</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  window.__hgAnim = true;
+  var root = document.documentElement;
+  var temIO = 'IntersectionObserver' in window;
+  var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loops = document.querySelectorAll('.step-loop');
+
+  function tocar(v) {
+    var p = v.play();
+    // navegadores podem recusar o play(); promessa rejeitada não pode virar
+    // erro solto no console
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  // Rede de segurança do WebM. O arquivo é VP9 no perfil 1 (4:4:4) e o Safari
+  // só decodifica o perfil 0 — mas, perguntado por "video/webm" sem detalhe,
+  // ele responde que sabe tocar, fica com esse <source> e só descobre o
+  // problema ao decodificar, quando já não volta atrás sozinho. Por isso o
+  // codec vai declarado no <source>, o que o faz recusar de saída e cair no
+  // MP4. Se ainda assim algum navegador escorregar, aqui a troca é forçada.
+  function cairNoMp4(v) {
+    var mp4 = v.querySelector('source[type^="video/mp4"]');
+    if (!mp4 || v.getAttribute('data-hg-mp4')) return;
+    v.setAttribute('data-hg-mp4', '1');
+    v.src = mp4.src;   // atribuir src ignora a lista de <source>
+    v.load();
+    tocar(v);
+  }
+
+  // Os vídeos dos passos fazem o papel dos antigos GIFs: rodam em laço, mudos,
+  // sem controles. Mas só enquanto estão à vista — fora da tela seriam rede e
+  // processador gastos à toa. Como carregam com preload="none", nada é baixado
+  // antes da hora.
+  Array.prototype.forEach.call(loops, function (v) {
+    v.addEventListener('error', function () { cairNoMp4(v); });
+  });
+
+  if (semMovimento || !temIO) {
+    // Aqui o laço automático seria justamente o que a pessoa pediu para não
+    // acontecer, então o vídeo fica parado no pôster e ganha controles.
+    Array.prototype.forEach.call(loops, function (v) { v.controls = true; });
+  } else {
+    var loopIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) { e.target.pause(); return; }
+        var v = e.target;
+        tocar(v);
+        // Segunda rede, caso o 'error' tenha disparado antes de alguém estar
+        // ouvindo. O critério é só v.error — nunca "demorou": num 3G ruim o
+        // WebM pode levar muito mais que isso para ter o primeiro quadro, e
+        // trocar por lentidão rebaixaria a qualidade caladamente.
+        setTimeout(function () { if (v.error) cairNoMp4(v); }, 2000);
+      });
+    }, { threshold: 0.25 });
+    Array.prototype.forEach.call(loops, function (v) { loopIO.observe(v); });
+
+    // Destrava por toque. Alguns navegadores — sobretudo dentro de aplicativos
+    // e em pré-visualizações — recusam qualquer play() que não venha de um
+    // gesto, mesmo com o vídeo mudo. O primeiro toque na página serve de gesto
+    // e solta os que ficaram parados. Roda uma vez só.
+    var destravar = function () {
+      Array.prototype.forEach.call(loops, function (v) {
+        var r = v.getBoundingClientRect();
+        if (v.paused && r.bottom > 0 && r.top < innerHeight) tocar(v);
+      });
+    };
+    ['touchend', 'click', 'scroll'].forEach(function (ev) {
+      document.addEventListener(ev, destravar, { once: true, passive: true });
+    });
+  }
+
+  // Sem suporte a IntersectionObserver ou com movimento reduzido, a página
+  // aparece inteira de uma vez — que é o comportamento correto nos dois casos.
+  if (!temIO || semMovimento) {
+    root.classList.remove('js');
+    return;
+  }
+
+  // [gatilho, itens dentro dele (':self' = o próprio), passo ms, atraso ms, variante]
+  var SEQ = [
+    ['.header-row',          ':scope > *',                            90,   0],
+    ['.hero-copy',           '.hero-line',                            90, 140],
+    ['.hero-copy',           '.hero-sub, .btn-row',                  100, 440],
+    ['.hero-media',          ':self',                                  0, 240, 'media'],
+    ['.band-teal .wrap',     ':scope > *',                            90,   0],
+    ['#dores .wrap',         '.eyebrow, .h2',                         90,   0],
+    ['.pain-grid',           '.pain-card',                           110, 100, 'side'],
+    ['.pain-card',           '.pain-card__tag',                        0, 380, 'tag'],
+    ['#como-funciona .wrap', '.eyebrow, .h2, .sec__lead',             90,   0],
+    ['.stage-flow',          '.stage',                               260, 100],
+    ['.stage-flow',          '.stage-arrow',                         260, 240, 'slide'],
+    ['.stage',               '.stage__tag',                            0, 320, 'pop'],
+    ['#como-funciona .wrap', '.pullquote',                             0,   0],
+    ['.ai-copy',             '.eyebrow, .h2--ai, .ai-text, .ai-flag',  90,   0],
+    ['.pill-flow',           '.pill',                                110, 120, 'fade'],
+    ['.phone',               ':self',                                  0, 100],
+    ['.phone__chat',         ':scope > *',                           330, 500],
+    ['.feat-grid',           '.feat',                                 90,   0],
+    ['#plataforma .wrap',    '.eyebrow, .h2, .platform-video',        90,   0],
+    ['.step',                '.step__num, .step__tag, .step__title, .step__text, .step-loop', 80, 0],
+    ['.step-rule',           ':self',                                  0,   0, 'line'],
+    ['#clientes .wrap',      '.eyebrow',                               0,   0],
+    ['.proof-head',          ':scope > *',                           140,   0],
+    ['.quote-grid',          '.quote',                               130, 100],
+    ['.cta-final__inner',    ':scope > *',                           100,   0],
+    ['.footer-grid',         ':scope > *',                            80,   0]
+  ];
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var els = entry.target.__hgEls || [];
+      els.forEach(function (el) { el.classList.add('is-in'); });
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+
+  SEQ.forEach(function (cfg) {
+    var sel = cfg[1], step = cfg[2], base = cfg[3], variant = cfg[4];
+    Array.prototype.forEach.call(document.querySelectorAll(cfg[0]), function (trigger) {
+      var els = sel === ':self'
+        ? [trigger]
+        : Array.prototype.slice.call(trigger.querySelectorAll(sel));
+      if (!els.length) return;
+      els.forEach(function (el, i) {
+        if (variant === 'line') {
+          el.classList.add('reveal--line');
+        } else {
+          el.classList.add('reveal');
+          if (variant) el.classList.add('reveal--' + variant);
+        }
+        el.style.transitionDelay = (base + i * step) + 'ms';
+      });
+      // um mesmo gatilho pode aparecer em mais de uma linha do SEQ
+      trigger.__hgEls = (trigger.__hgEls || []).concat(els);
+      io.observe(trigger);
+    });
+  });
+
+  // "+100" conta a partir do zero quando entra em cena
+  var stat = document.querySelector('.proof-stat__num');
+  if (stat) {
+    var alvo = parseInt(stat.textContent.replace(/\D/g, ''), 10) || 0;
+    var statIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      statIO.disconnect();
+      var t0 = null;
+      requestAnimationFrame(function passo(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 1500);
+        stat.textContent = '+' + Math.round(alvo * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(passo);
+      });
+    }, { threshold: 0.4 });
+    statIO.observe(stat);
+  }
+})();
+</script>
+
+</body>
+</html>
