@@ -1426,7 +1426,8 @@ a { color: inherit; }
         <video class="step-loop" loop muted playsinline preload="none"
                poster="assets/video/poster1.webp"
                aria-label="Demonstração: a IA montando os formulários de pré e pós-venda.">
-          <source src="assets/video/passo1.webm" type="video/webm">
+          <source src="assets/video/passo1.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
           <source src="assets/video/passo1.mp4" type="video/mp4">
         </video>
       </article>
@@ -1443,7 +1444,8 @@ a { color: inherit; }
         <video class="step-loop" loop muted playsinline preload="none"
                poster="assets/video/poster2.webp"
                aria-label="Demonstração: o formulário chegando ao paciente e o quadro de oportunidades.">
-          <source src="assets/video/passo2.webm" type="video/webm">
+          <source src="assets/video/passo2.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
           <source src="assets/video/passo2.mp4" type="video/mp4">
         </video>
       </article>
@@ -1460,7 +1462,8 @@ a { color: inherit; }
         <video class="step-loop" loop muted playsinline preload="none"
                poster="assets/video/poster3.webp"
                aria-label="Demonstração: abrindo um cliente dentro do quadro de oportunidades.">
-          <source src="assets/video/passo3.webm" type="video/webm">
+          <source src="assets/video/passo3.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
           <source src="assets/video/passo3.mp4" type="video/mp4">
         </video>
       </article>
@@ -1477,7 +1480,8 @@ a { color: inherit; }
         <video class="step-loop" loop muted playsinline preload="none"
                poster="assets/video/poster4.webp"
                aria-label="Demonstração: o painel com prioridades, oportunidades e NPS.">
-          <source src="assets/video/passo4.webm" type="video/webm">
+          <source src="assets/video/passo4.webm"
+                  type='video/webm; codecs="vp09.01.30.08"'>
           <source src="assets/video/passo4.mp4" type="video/mp4">
         </video>
       </article>
@@ -1571,10 +1575,36 @@ a { color: inherit; }
   var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var loops = document.querySelectorAll('.step-loop');
 
+  function tocar(v) {
+    var p = v.play();
+    // navegadores podem recusar o play(); promessa rejeitada não pode virar
+    // erro solto no console
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  // Rede de segurança do WebM. O arquivo é VP9 no perfil 1 (4:4:4) e o Safari
+  // só decodifica o perfil 0 — mas, perguntado por "video/webm" sem detalhe,
+  // ele responde que sabe tocar, fica com esse <source> e só descobre o
+  // problema ao decodificar, quando já não volta atrás sozinho. Por isso o
+  // codec vai declarado no <source>, o que o faz recusar de saída e cair no
+  // MP4. Se ainda assim algum navegador escorregar, aqui a troca é forçada.
+  function cairNoMp4(v) {
+    var mp4 = v.querySelector('source[type^="video/mp4"]');
+    if (!mp4 || v.getAttribute('data-hg-mp4')) return;
+    v.setAttribute('data-hg-mp4', '1');
+    v.src = mp4.src;   // atribuir src ignora a lista de <source>
+    v.load();
+    tocar(v);
+  }
+
   // Os vídeos dos passos fazem o papel dos antigos GIFs: rodam em laço, mudos,
   // sem controles. Mas só enquanto estão à vista — fora da tela seriam rede e
   // processador gastos à toa. Como carregam com preload="none", nada é baixado
   // antes da hora.
+  Array.prototype.forEach.call(loops, function (v) {
+    v.addEventListener('error', function () { cairNoMp4(v); });
+  });
+
   if (semMovimento || !temIO) {
     // Aqui o laço automático seria justamente o que a pessoa pediu para não
     // acontecer, então o vídeo fica parado no pôster e ganha controles.
@@ -1582,14 +1612,14 @@ a { color: inherit; }
   } else {
     var loopIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          // navegadores podem recusar o play(); a promessa rejeitada não pode
-          // virar erro solto no console
-          var p = e.target.play();
-          if (p && p.catch) p.catch(function () {});
-        } else {
-          e.target.pause();
-        }
+        if (!e.isIntersecting) { e.target.pause(); return; }
+        var v = e.target;
+        tocar(v);
+        // Segunda rede, caso o 'error' tenha disparado antes de alguém estar
+        // ouvindo. O critério é só v.error — nunca "demorou": num 3G ruim o
+        // WebM pode levar muito mais que isso para ter o primeiro quadro, e
+        // trocar por lentidão rebaixaria a qualidade caladamente.
+        setTimeout(function () { if (v.error) cairNoMp4(v); }, 2000);
       });
     }, { threshold: 0.25 });
     Array.prototype.forEach.call(loops, function (v) { loopIO.observe(v); });

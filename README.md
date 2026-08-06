@@ -159,6 +159,19 @@ com a qualidade invertida a favor dele).
 Cada `<video>` tem WebM e MP4: o navegador baixa só o primeiro que entende. O WebM
 atende Chrome, Firefox e Edge; o MP4 existe para o Safari, que não decodifica VP9 4:4:4.
 
+**O codec vai declarado no `<source>`, e isso não é detalhe.** Perguntado por
+`type="video/webm"` puro, o Safari responde `maybe` — ele realmente toca WebM, só que
+no perfil 0. Com essa resposta ele fica com o `<source>` do WebM e só descobre que não
+decodifica o perfil 1 na hora de tocar, quando a escolha de fonte já passou e não há
+volta ao MP4: o vídeo fica parado no pôster. Com
+`type='video/webm; codecs="vp09.01.30.08"'` ele recusa de saída e pega o MP4 sozinho.
+
+Há ainda uma rede de segurança no script: se um `<video>` terminar com `error`, a fonte
+é trocada pelo MP4 na mão. O gatilho é só `v.error`, nunca demora — num 3G ruim o WebM
+pode levar bem mais que alguns segundos até o primeiro quadro, e trocar por lentidão
+rebaixaria a qualidade caladamente. Testado nos três cenários: normal fica no WebM,
+WebM indecodificável cai no MP4, e WebM lento (6s) **não** troca.
+
 **Capa.** O PNG entregue era 16 bits por canal sem necessidade. Reduzido a 8 bits:
 1,80 MB → 216 KB com diferença zero.
 
