@@ -59,73 +59,60 @@ for i in (1, 2, 3, 4):
     html = html.replace(f'poster="assets/video/poster{i}.webp"',
                         f'poster="{b64(ROOT / f"assets/video/poster{i}.webp", "image/webp")}"')
 
-# ---- vídeos: <source> sai, o base64 vai para um <script> ------------------
+# ---- vídeos embutidos ----------------------------------------------------
+# O WebM 4:4:4 não entra: aqui só interessa o H.264, que toca em tudo.
 html, n = re.subn(r'\s*<source src="assets/video/passo\d\.webm"\s*\n?\s*'
                   r"type='video/webm; codecs=\"vp09\.01\.30\.08\"'>", '', html)
 assert n == 4, f'esperava remover 4 sources webm, removi {n}'
 
-depositos = []
+
+def embutir(rel_html, arquivo):
+    """Troca o src do <source> pelo arquivo inteiro, em data:."""
+    global html
+    alvo = f'<source src="{rel_html}" type="video/mp4">'
+    assert html.count(alvo) == 1, f'esperava 1 ocorrência de {rel_html}'
+    html = html.replace(alvo, f'<source src="{b64(arquivo, "video/mp4")}" type="video/mp4">')
+
+
 for i in (1, 2, 3, 4):
-    html, k = re.subn(f'<source src="assets/video/passo{i}\\.mp4" type="video/mp4">',
-                      f'<!-- vídeo em #v-passo{i} -->', html)
-    assert k == 1
-    depositos.append((f'v-passo{i}', LEVE / f'passo{i}.mp4'))
-
-# Os quatro <video> são marcados de uma vez, na ordem do documento. Um replace
-# por vez não serve: depois do primeiro, o trecho procurado continua casando
-# com ele mesmo e todas as marcas se empilhavam no primeiro vídeo.
-contador = [0]
-
-
-def marcar(_):
-    contador[0] += 1
-    return f'<video class="step-loop" data-hg-src="v-passo{contador[0]}"'
-
-
-html, n = re.subn(r'<video class="step-loop"', marcar, html)
-assert n == 4, f'esperava marcar 4 vídeos de passo, marquei {n}'
-
-html, n = re.subn(r'<source src="assets/video/motion-hellogrowth\.mp4" type="video/mp4">',
-                  '<!-- vídeo em #v-motion -->', html)
-assert n == 1
-html = html.replace('<video class="platform-video"', '<video class="platform-video" data-hg-src="v-motion"', 1)
-depositos.append(('v-motion', LEVE / 'motion.mp4'))
+    embutir(f'assets/video/passo{i}.mp4', LEVE / f'passo{i}.mp4')
+embutir('assets/video/motion-hellogrowth.mp4', LEVE / 'motion.mp4')
 
 html = html.replace('<a href="assets/video/motion-hellogrowth.mp4">Baixar o Motion institucional</a>',
                     'Baixe a versão em pasta para assistir.')
 
-blocos = '\n'.join(
-    f'<script type="text/plain" id="{ident}">{base64.b64encode(caminho.read_bytes()).decode()}</script>'
-    for ident, caminho in depositos)
+# Os laços ganham `autoplay`. Na página servida por rede isso não existe, porque
+# forçaria o download dos quatro vídeos de uma vez; aqui eles já estão dentro do
+# arquivo, então não custa nada — e é o caminho nativo do WebKit para vídeo mudo
+# em laço, o único que funciona onde o JavaScript não roda.
+html, n = re.subn(r'<video class="step-loop" loop muted playsinline',
+                  '<video class="step-loop" autoplay loop muted playsinline', html)
+assert n == 4, f'esperava 4 laços com autoplay, marquei {n}'
 
+# Melhoria para quando o script roda: blob: no lugar de data:. O Safari exige
+# que a origem do vídeo responda a requisição por faixa de bytes — data: não
+# responde, blob: responde. Sem script, fica o data: do <source>, que já basta
+# em Chrome, Firefox e Edge.
 leitor = """
 <script>
-/* Vídeos guardados como texto viram blob: aqui. Não vão como data: no src
-   porque o Safari só toca vídeo de origem que atenda requisição por faixa de
-   bytes — data: não atende, blob: atende. */
 (function () {
-  var vids = document.querySelectorAll('video[data-hg-src]');
-  Array.prototype.forEach.call(vids, function (v) {
-    var dep = document.getElementById(v.getAttribute('data-hg-src'));
-    if (!dep) return;
-    try {
-      var bin = atob(dep.textContent.trim());
-      var buf = new Uint8Array(bin.length);
-      for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
-      v.src = URL.createObjectURL(new Blob([buf], { type: 'video/mp4' }));
-      dep.textContent = '';   // libera a cópia em texto, que já não serve
-    } catch (e) { /* sem vídeo, fica o pôster */ }
+  if (!window.fetch || !window.URL || !URL.createObjectURL) return;
+  Array.prototype.forEach.call(document.querySelectorAll('video'), function (v) {
+    var s = v.querySelector('source[type="video/mp4"]');
+    if (!s || s.src.slice(0, 5) !== 'data:') return;
+    fetch(s.src).then(function (r) { return r.blob(); }).then(function (b) {
+      var tocava = !v.paused;
+      v.src = URL.createObjectURL(b);
+      if (tocava) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    }).catch(function () { /* fica o data:, que é o caminho sem script */ });
   });
 })();
 </script>
 """
 
-# Ordem obrigatória: depósitos, leitor, script de animação. O leitor procura os
-# depósitos por id, então eles têm de já existir no documento; e o de animação é
-# quem dá play, então precisa achar o src já montado.
 alvo = '<script>\n(function () {\n  window.__hgAnim = true;'
 assert alvo in html
-html = html.replace(alvo, blocos + '\n' + leitor + '\n' + alvo, 1)
+html = html.replace(alvo, leitor + alvo, 1)
 
 # preload="none" não faz sentido com o arquivo já dentro
 html = html.replace('preload="none"', 'preload="auto"')
@@ -137,7 +124,7 @@ externos = [u for u in re.findall(r'\s(?:src|href|poster)="((?!data:)[^"]*)"', s
 assert not externos, f'ficou dependendo de arquivo externo: {externos}'
 
 SAIDA.write_text(html, encoding='utf-8')
-print(f'videos embutidos : {len(depositos)}')
+print(f'videos embutidos : {html.count(chr(34)) and html.count("data:video/mp4")}')
 print(f'arquivos externos: {externos or "nenhum"}')
 print(f'arquivo          : {SAIDA}')
 print(f'tamanho          : {SAIDA.stat().st_size / 1048576:.1f} MB')

@@ -579,11 +579,17 @@ a { color: inherit; }
          box-shadow: 0 0 0 0 rgba(191, 255, 0, 0);   border-color: var(--paper); }
 }
 
-/* O atraso inicial deixa a animação de entrada terminar antes: as duas mexem
-   em `transform`, e sem isso o brilho atropelaria a entrada da pílula. */
-.pill.is-in              { animation: hg-pill-glow 4s ease-in-out 1.4s infinite; }
-.pill.is-in:nth-child(2) { animation-delay: 2.3s; }
-.pill.is-in:nth-child(3) { animation-delay: 3.2s; }
+/* O brilho não espera nada: roda desde que a página carrega, como o feixe de
+   luz dos rótulos. Antes ele dependia da classe .is-in, posta por JavaScript,
+   e por isso não acontecia onde o script não roda — a pré-visualização do iOS,
+   por exemplo. Isto aqui é CSS puro e vale em qualquer lugar.
+
+   A entrada da pílula agora é só opacidade (variante 'fade' na tabela de
+   animação): era ela que disputava o `transform` com o brilho e obrigava o
+   antigo atraso inicial. */
+.pill              { animation: hg-pill-glow 4s ease-in-out infinite; }
+.pill:nth-child(2) { animation-delay: 0.9s; }
+.pill:nth-child(3) { animation-delay: 1.8s; }
 
 /* O traço de ligação entre as pílulas saiu do design: ele ficava por cima da
    pílula quando ela crescia no brilho. A sequência agora é contada só pelo
@@ -1068,6 +1074,11 @@ a { color: inherit; }
 }
 .js .reveal        { opacity: 0; transform: translateY(18px); }
 .js .reveal.is-in  { opacity: 1; transform: none; }
+
+/* Entrada só por opacidade, para quem já usa `transform` em outra animação —
+   as pílulas do agente de IA, que brilham em laço desde o carregamento. */
+.js .reveal--fade       { transform: none; }
+.js .reveal--fade.is-in { transform: none; }
 
 /* a imagem do hero cresce até o lugar em vez de deslizar: um translate
    empurraria parte dela para fora do overflow:hidden do .hero e ela apareceria
@@ -1665,6 +1676,20 @@ a { color: inherit; }
       });
     }, { threshold: 0.25 });
     Array.prototype.forEach.call(loops, function (v) { loopIO.observe(v); });
+
+    // Destrava por toque. Alguns navegadores — sobretudo dentro de aplicativos
+    // e em pré-visualizações — recusam qualquer play() que não venha de um
+    // gesto, mesmo com o vídeo mudo. O primeiro toque na página serve de gesto
+    // e solta os que ficaram parados. Roda uma vez só.
+    var destravar = function () {
+      Array.prototype.forEach.call(loops, function (v) {
+        var r = v.getBoundingClientRect();
+        if (v.paused && r.bottom > 0 && r.top < innerHeight) tocar(v);
+      });
+    };
+    ['touchend', 'click', 'scroll'].forEach(function (ev) {
+      document.addEventListener(ev, destravar, { once: true, passive: true });
+    });
   }
 
   // Sem suporte a IntersectionObserver ou com movimento reduzido, a página
@@ -1690,7 +1715,7 @@ a { color: inherit; }
     ['.stage',               '.stage__tag',                            0, 320, 'pop'],
     ['#como-funciona .wrap', '.pullquote',                             0,   0],
     ['.ai-copy',             '.eyebrow, .h2--ai, .ai-text, .ai-flag',  90,   0],
-    ['.pill-flow',           '.pill',                                110, 120],
+    ['.pill-flow',           '.pill',                                110, 120, 'fade'],
     ['.phone',               ':self',                                  0, 100],
     ['.phone__chat',         ':scope > *',                           330, 500],
     ['.feat-grid',           '.feat',                                 90,   0],

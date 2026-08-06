@@ -484,6 +484,20 @@
       });
     }, { threshold: 0.25 });
     Array.prototype.forEach.call(loops, function (v) { loopIO.observe(v); });
+
+    // Destrava por toque. Alguns navegadores — sobretudo dentro de aplicativos
+    // e em pré-visualizações — recusam qualquer play() que não venha de um
+    // gesto, mesmo com o vídeo mudo. O primeiro toque na página serve de gesto
+    // e solta os que ficaram parados. Roda uma vez só.
+    var destravar = function () {
+      Array.prototype.forEach.call(loops, function (v) {
+        var r = v.getBoundingClientRect();
+        if (v.paused && r.bottom > 0 && r.top < innerHeight) tocar(v);
+      });
+    };
+    ['touchend', 'click', 'scroll'].forEach(function (ev) {
+      document.addEventListener(ev, destravar, { once: true, passive: true });
+    });
   }
 
   // Sem suporte a IntersectionObserver ou com movimento reduzido, a página
@@ -509,7 +523,7 @@
     ['.stage',               '.stage__tag',                            0, 320, 'pop'],
     ['#como-funciona .wrap', '.pullquote',                             0,   0],
     ['.ai-copy',             '.eyebrow, .h2--ai, .ai-text, .ai-flag',  90,   0],
-    ['.pill-flow',           '.pill',                                110, 120],
+    ['.pill-flow',           '.pill',                                110, 120, 'fade'],
     ['.phone',               ':self',                                  0, 100],
     ['.phone__chat',         ':scope > *',                           330, 500],
     ['.feat-grid',           '.feat',                                 90,   0],

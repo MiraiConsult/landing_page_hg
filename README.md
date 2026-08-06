@@ -44,10 +44,25 @@ HTML numa caixa fechada, **sem acesso aos arquivos vizinhos**: na versão em pas
 vídeos nem os pôsteres carregam, só o que já está embutido. Por isso a versão portátil não
 deixa nada de fora.
 
-Nela os vídeos não vão como `data:` no `src`: o Safari só toca vídeo de origem que
-responda a requisição por faixa de bytes, o que `data:` não faz e `blob:` faz. O base64
-fica num `<script type="text/plain">` e vira `blob:` no navegador — e o texto é descartado
-logo depois, para não manter duas cópias na memória.
+**Nada ali pode depender de JavaScript.** A mesma pré-visualização também não roda script
+— o sintoma que denunciou isso foi o feixe de luz dos rótulos funcionando (CSS puro)
+enquanto o brilho das pílulas não (dependia de `.is-in`, posta por script). Então na
+versão portátil os vídeos vão como `data:` direto no `<source>`, com `autoplay loop muted
+playsinline`, que é o caminho nativo do WebKit para vídeo mudo em laço.
+
+O `autoplay` existe **só** na versão portátil: na página servida por rede ele forçaria o
+download dos quatro vídeos de uma vez.
+
+Quando o script roda, ele troca o `data:` por `blob:` — o Safari só toca vídeo de origem
+que responda a requisição por faixa de bytes, o que `data:` não faz e `blob:` faz. É
+melhoria, não requisito: sem script fica o `data:`, que já basta em Chrome, Firefox e Edge.
+
+Há ainda uma destrava por toque na página principal: alguns navegadores dentro de
+aplicativos recusam qualquer `play()` que não venha de um gesto, mesmo com o vídeo mudo. O
+primeiro toque serve de gesto e solta os laços parados.
+
+Verificado com o navegador de **JavaScript desligado**: os laços tocam e as pílulas
+brilham do mesmo jeito.
 
 ## O que ainda precisa ser preenchido
 
@@ -155,10 +170,13 @@ imagem em telas menores.
 
 **Pílulas do agente de IA.** Percurso luminoso em loop: cada pílula acende e cresce um
 pouco, na ordem, e recomeça. O traço de ligação entre elas saiu do design — ficava por
-cima da pílula quando ela crescia. As três compartilham o mesmo ciclo de 4s e se diferenciam só
-pelo `animation-delay`, o que mantém a ordem sempre correta. O atraso inicial de 1,4s
-existe porque brilho e entrada disputam a mesma propriedade `transform` — sem ele o
-brilho atropelaria a animação de entrada.
+cima da pílula quando ela crescia. As três compartilham o mesmo ciclo de 4s e se
+diferenciam só pelo `animation-delay`, o que mantém a ordem sempre correta.
+
+O brilho **não espera nada**: roda desde o carregamento, como o feixe de luz dos rótulos.
+Antes dependia da classe `.is-in`, posta por JavaScript, e por isso não acontecia onde o
+script não roda. A entrada das pílulas virou só opacidade (variante `fade`) — era ela que
+disputava o `transform` com o brilho e obrigava o antigo atraso inicial de 1,4s.
 
 **Traços dos rótulos.** Um ponto de luz corre de uma ponta à outra em replay, para chamar
 a leitura. É um gradiente de 55% da largura deslocado por `background-position`; a cor do
