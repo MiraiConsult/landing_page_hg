@@ -524,16 +524,20 @@ a { color: inherit; }
 /* trilha de pílulas */
 .pill-flow {
   display: flex;
-  flex-wrap: wrap;
+  /* Nunca quebram linha: as três descrevem uma sequência, e duas em cima com
+     uma embaixo desmancha essa leitura. Encolhem juntas em vez de quebrar. */
+  flex-wrap: nowrap;
   align-items: stretch;
-  gap: 18px;
+  gap: clamp(8px, 1.2vw, 18px);
   margin-top: clamp(28px, 3vw, 40px);
 }
 
 .pill {
-  /* largura fixa como no design: as pílulas não esticam para preencher
-     a coluna, só encolhem quando a tela aperta */
-  flex: 0 1 153px;
+  /* Repartem a linha em partes iguais, com teto nos 153px do design — em
+     telas largas o teto vale e o resultado é idêntico ao Figma. */
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 153px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -543,12 +547,22 @@ a { color: inherit; }
   border: 1px solid var(--paper);
   border-radius: 35px;
   color: #fff;
-  padding: 16px 18px;
-  font-size: var(--fs-sm);
+  padding: clamp(12px, 1.4vw, 16px) clamp(6px, 1.3vw, 18px);
+  font-size: clamp(0.72rem, 1.15vw, 0.9688rem);
   font-weight: 800;
   line-height: 1.25;
+  hyphens: auto;
 }
-.pill__icon { display: block; color: var(--lime); margin-bottom: 2px; }
+/* Desenho vetorial em vez de caractere: o iOS renderiza ✔ e ✦ como emoji, com
+   cor própria, ignorando o color daqui — era por isso que o tique da primeira
+   pílula aparecia escuro e ilegível sobre o verde. */
+.pill__icon {
+  display: block;
+  margin: 0 auto 4px;
+  color: var(--lime);
+  height: 16px;
+  width: auto;
+}
 
 /* Percurso luminoso: acende a 1ª pílula, depois o traço, a 2ª, o traço, a 3ª,
    e recomeça. Todos partilham o mesmo ciclo de 5s e se diferenciam só pelo
@@ -1015,6 +1029,34 @@ a { color: inherit; }
     pointer-events: none;
   }
   .hero-media img { width: 100%; }
+}
+
+/* =============================================================== celular
+   O design só existe em 1440px. Abaixo de 960 algumas escolhas feitas para o
+   desktop passam a atrapalhar, e é aqui que elas são desfeitas.
+   -------------------------------------------------------------------- */
+@media (max-width: 959px) {
+  /* O notebook foi exportado descentralizado de propósito: a área vazia à
+     esquerda é o que, no desktop, deixa a imagem invadir a coluna de texto.
+     Sem essa coluna a sobra vira espaço morto e o notebook encolhe num canto.
+     A tinta ocupa x 25,33%→97,17% da imagem (medido no canal alfa), ou seja
+     71,84% da largura: alargar a caixa em 1/0,7184 e puxá-la para a esquerda
+     faz o notebook preencher a largura toda. Os cards são posicionados em
+     porcentagem da mesma caixa, então acompanham sem ajuste. O corte da parte
+     vazia fica por conta do overflow:hidden do .hero. */
+  .hero-stage {
+    width: 139.2%;
+    margin-left: -35.3%;
+    margin-bottom: -6%;   /* apara a faixa vazia sob a sombra */
+  }
+
+  /* Empilhados, os dois CTAs no tamanho do desktop dominavam a tela inteira.
+     Continuam bem acima dos 44px de alvo de toque. */
+  .btn     { padding: 15px 24px; font-size: 0.9375rem; }
+  .btn-row { gap: 12px; }
+
+  /* sem a coluna do celular ao lado, o raio do design fica desproporcional */
+  .pill { border-radius: 22px; }
 }
 
 /* ============================================================== animação

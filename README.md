@@ -32,9 +32,22 @@ python3 -m http.server 8000
 # → http://localhost:8000
 ```
 
-Para abrir sem servidor nenhum existe o **`apresentacao.html`**: mesma página, com CSS,
-fontes e imagens embutidos, só os vídeos ficam em `assets/video/`. Dois cliques e abre.
-É gerado a partir do `index.html`, então é ele que deve ser editado — nunca o gerado.
+Há dois arquivos gerados a partir do `index.html` — que é sempre o que se edita:
+
+| Gerado por | Saída | Para quê |
+|---|---|---|
+| `tools/build_pasta.py` | pasta + `.zip` (110 MB) | qualidade máxima, computador |
+| `tools/build_portatil.py` | um `.html` só (19 MB) | celular e envio por link/e-mail |
+
+**Por que existem os dois.** A pré-visualização do iOS (app Arquivos / Quick Look) roda o
+HTML numa caixa fechada, **sem acesso aos arquivos vizinhos**: na versão em pasta nem os
+vídeos nem os pôsteres carregam, só o que já está embutido. Por isso a versão portátil não
+deixa nada de fora.
+
+Nela os vídeos não vão como `data:` no `src`: o Safari só toca vídeo de origem que
+responda a requisição por faixa de bytes, o que `data:` não faz e `blob:` faz. O base64
+fica num `<script type="text/plain">` e vira `blob:` no navegador — e o texto é descartado
+logo depois, para não manter duas cópias na memória.
 
 ## O que ainda precisa ser preenchido
 
@@ -75,6 +88,24 @@ qualquer tela, pesa quase nada e o texto das mensagens dá pra editar direto no 
 **Responsivo.** O design só existe em 1440 px; as quebras abaixo disso são decisão de
 implementação. Tipografia fluida com `clamp()`, grids colapsando em 720 px / 960 px.
 Sem overflow horizontal em 1440, 1180, 834, 390 e 320 px.
+
+Três ajustes valem explicação, todos em `@media (max-width: 959px)`:
+
+**O notebook.** A imagem foi exportada com o notebook fora do centro de propósito — a
+área vazia à esquerda é o que, no desktop, deixa a imagem invadir a coluna de texto. Sem
+essa coluna a sobra vira espaço morto e o notebook encolhe num canto. A tinta ocupa
+x 25,33%→97,17% da imagem (medido no canal alfa): alargar a caixa em `1/0,7184` e puxá-la
+`-35,3%` para a esquerda faz o notebook preencher a largura. Os cards são posicionados em
+porcentagem da mesma caixa, então acompanham sem ajuste.
+
+**As pílulas do agente de IA** não quebram linha em largura nenhuma. Com `flex-wrap: wrap`
+elas caíam duas em cima e uma embaixo entre 960 px e ~1090 px e no celular, o que desmancha
+a leitura de sequência. Agora repartem a linha em partes iguais com teto nos 153 px do
+design — em tela larga o teto vale e o resultado é idêntico ao Figma.
+
+**Os ícones das pílulas são SVG, não caractere.** O iOS renderiza `✔` e `✦` como emoji,
+com cor própria, ignorando o `color` do CSS: o tique aparecia escuro e ilegível sobre o
+verde. O da anamnese virou três brilhos crescentes, sugerindo a sequência.
 
 **Acessibilidade.** HTML semântico, hierarquia de headings sem saltos, skip link,
 `alt` descritivo nas imagens, mock do chat com `aria-label` resumindo a conversa,
